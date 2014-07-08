@@ -262,7 +262,7 @@ class ElggListQuery {
 	private function sqlAddObjectSearchQuery($query = '') {
 
 		$this->sqlJoinObjectsTable();
-		$where = $this->sqlGetWhereFulltextClause($this->prefixes->object_entity, array('title', 'description'), $query, false);
+		$where = $this->sqlGetWhereFulltextClause($this->prefixes->objects_entity, array('title', 'description'), $query, false);
 		$this->sqlAddOption('wheres', $where, 'object_query');
 		return $this;
 	}
