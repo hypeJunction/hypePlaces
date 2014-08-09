@@ -226,17 +226,3 @@ function page_handler($page, $handler) {
 
 	return false;
 }
-
-/**
- * Prettify URLs
- * @param ElggObject $entity
- * @return string
- */
-function url_handler($entity) {
-
-	switch ($entity->getSubtype()) {
-		case Place::SUBTYPE :
-			$friendly_title = elgg_get_friendly_title($entity->title);
-			return elgg_normalize_url(PAGEHANDLER . '/profile/' . $entity->guid . '/' . $friendly_title);
-	}
-}

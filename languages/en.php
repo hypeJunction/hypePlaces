@@ -90,6 +90,8 @@ $english = array(
 	'places:widgets:about:desc' => 'Widget containing information about the place',
 	'places:widgets:activity' => 'Activity',
 	'places:widgets:activity:desc' => 'Latest activity',
+	'places:widgets:comments' => 'Comments',
+	'places:widgets:comments:desc' => 'Latest comments',
 
 	/**
 	 * SETTINGS
