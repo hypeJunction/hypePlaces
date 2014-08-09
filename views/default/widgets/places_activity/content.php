@@ -1,9 +1,9 @@
 <?php
 
-$entity = elgg_extract('entity', $vars);
+namespace hypeJunction\Places;
 
 $options = array(
-	'limit' => $num,
+	'limit' => $vars['entity']->num_display,
 	'pagination' => false,
 	'object_guids' => elgg_get_page_owner_guid(),
 );
