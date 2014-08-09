@@ -3,7 +3,7 @@
 $entity = elgg_extract('entity', $vars);
 
 $options = array(
-	'limit' => $num,
+	'limit' => $entity->num_display,
 	'pagination' => false,
 	'object_guids' => elgg_get_page_owner_guid(),
 );
