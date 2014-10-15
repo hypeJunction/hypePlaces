@@ -12,7 +12,14 @@ if (!$entity instanceof Place) {
 
 if (!$entity->isCheckedIn()) {
 	if ($id = $entity->checkIn()) {
-		add_to_river('framework/river/places/checkin', 'stream:places:checkin', elgg_get_logged_in_user_guid(), $entity->guid, $entity->access_id, time(), $id);
+		elgg_create_river_item(array(
+			'view' => 'framework/river/places/checkin',
+			'action_type' => 'stream:places:checkin',
+			'subject_guid' => elgg_get_logged_in_user_guid(),
+			'object_guid' => $entity->guid,
+			'acess_id' => $entity->access_id,
+			'annotation_id' => $id
+		));
 		system_message(elgg_echo('places:checkin:success', array($entity->title)));
 		forward(REFERER);
 	}

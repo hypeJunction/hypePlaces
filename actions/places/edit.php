@@ -71,7 +71,12 @@ if ($entity->save()) {
 	}
 
 	if ($river) {
-		add_to_river('framework/river/places/create', 'create', $entity->owner_guid, $entity->guid);
+		elgg_create_river_item(array(
+			'view' => 'framework/river/places/create',
+			'action_type' => 'create',
+			'subject_guid' => $entity->owner_guid,
+			'object_guid' => $entity->guid
+		));
 	}
 	elgg_clear_sticky_form('places/edit');
 	system_message(elgg_echo('places:edit:success', array($entity->title)));

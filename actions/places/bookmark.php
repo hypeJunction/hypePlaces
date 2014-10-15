@@ -12,7 +12,13 @@ if (!$entity) {
 
 if (!check_entity_relationship(elgg_get_logged_in_user_guid(), 'bookmarked', $guid)) {
 	add_entity_relationship(elgg_get_logged_in_user_guid(), 'bookmarked', $guid);
-	add_to_river('framework/river/places/bookmark', 'stream:places:bookmark', elgg_get_logged_in_user_guid(), $entity->guid, $entity->access_id, time());
+	elgg_create_river_item(array(
+		'view' => 'framework/river/places/bookmark',
+		'action_type' => 'stream:places:bookmark',
+		'subject_guid' => elgg_get_logged_in_user_guid(),
+		'object_guid' => $entity->guid,
+		'access_id' => $entity->access_id
+	));
 	system_message(elgg_echo('places:bookmark:create:success'));
 	forward(REFERER);
 }
