@@ -26,7 +26,7 @@ matrix:
        - phpcs --standard=../elgg-coding-standards/elgg.xml --warning-severity=0 --ignore=*../Elgg/mod/hypePlaces/tests/*,*./Elgg/mod/hypePlaces/vendors/* ../Elgg/mod/hypePlaces/
        - phpunit --coverage-clover=coverage.clover
        - php composer.phar validate --verbose ../Elgg/mod/hypePlaces/composer.json
-       after_script:
+      after_script:
        - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
 
 services:
