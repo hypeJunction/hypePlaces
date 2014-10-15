@@ -81,7 +81,8 @@ $english = array(
 	'places:bookmark:remove:error' => 'Place could not be unstarred',
 	'places:checkin:success' => 'You were checked in at %s',
 	'places:checkin:error' => 'Checkin at %s failed',
-	'places:checkout:success' => 'You were checked out from %s. Note that you do not have to checkout unless you want to remove the traces. Checkins expire automatically',
+	'places:checkout:success' => 'You were checked out from %s. Note that you do not have to checkout unless you want to remove the traces. '
+	. 'Checkins expire automatically',
 	'places:checkout:error' => 'Checkin at %s failed',
 	/**
 	 * WIDGETS

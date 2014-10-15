@@ -7,11 +7,11 @@ use ElggMenuItem;
 /**
  * Give entities their own URLs
  *
- * @param string $hook		Equals 'entity:url'
- * @param string $type		Equals 'object'
- * @param string $return	Current URL
- * @param array $params		Additional params
- * @return string			Filtered URL
+ * @param string $hook   Equals 'entity:url'
+ * @param string $type   Equals 'object'
+ * @param string $return Current URL
+ * @param array  $params Additional params
+ * @return string Filtered URL
  */
 function url_handler($hook, $type, $return, $params) {
 	$entity = elgg_extract('entity', $params);
@@ -27,11 +27,11 @@ function url_handler($hook, $type, $return, $params) {
 /**
  * Get icon URL hook
  *
- * @param string $hook		Equals 'entity:icon:url'
- * @param string $type		Equals 'object'
- * @param array $return		Current URL
- * @param array $params		Additional params
- * @return array			Updated URL
+ * @param string $hook   Equals 'entity:icon:url'
+ * @param string $type   Equals 'object'
+ * @param array  $return Current URL
+ * @param array  $params Additional params
+ * @return array Updated URL
  * @return string
  */
 function entity_icon_url($hook, $type, $return, $params) {
@@ -52,11 +52,11 @@ function entity_icon_url($hook, $type, $return, $params) {
 /**
  * Icon size config
  *
- * @param string $hook		Equals 'entity:icon:sizes'
- * @param string $type		Equals 'object'
- * @param array $return		Current config
- * @param array $params		Additional params
- * @return array			Updated config
+ * @param string $hook   Equals 'entity:icon:sizes'
+ * @param string $type   Equals 'object'
+ * @param array  $return Current config
+ * @param array  $params Additional params
+ * @return array Updated config
  */
 function entity_icon_sizes($hook, $type, $return, $params) {
 
@@ -86,12 +86,12 @@ function entity_icon_sizes($hook, $type, $return, $params) {
 
 /**
  * Setup entity menus
- * 
- * @param string $hook
- * @param string $type
- * @param array $return
- * @param array $params
- * @return array
+ *
+ * @param string $hook   'register'
+ * @param string $type   'menu:entity'
+ * @param array  $return Current menu
+ * @param array  $params Additional params
+ * @return array Updated menu
  */
 function entity_menu_setup($hook, $type, $return, $params) {
 
@@ -129,11 +129,11 @@ function entity_menu_setup($hook, $type, $return, $params) {
 /**
  * Setup user interaction menus
  *
- * @param string $hook
- * @param string $type
- * @param array $return
- * @param array $params
- * @return array
+ * @param string $hook   'register'
+ * @param string $type   'menu:entity'
+ * @param array  $return Current menu
+ * @param array  $params Additional params
+ * @return array Updated menu
  */
 function interactions_menu_setup($hook, $type, $return, $params) {
 
@@ -202,11 +202,11 @@ function interactions_menu_setup($hook, $type, $return, $params) {
 /**
  * Setup owner block menu
  *
- * @param string $hook		Equals 'register'
- * @param string $type		Equals 'menu:owner_block'
- * @param array $return		Current menu items
- * @param array $params		Additional params
- * @return array			Updated menu
+ * @param string $hook   Equals 'register'
+ * @param string $type   Equals 'menu:owner_block'
+ * @param array  $return Current menu items
+ * @param array  $params Additional params
+ * @return array Updated menu
  */
 function owner_block_menu_setup($hook, $type, $return, $params) {
 
@@ -232,11 +232,11 @@ function owner_block_menu_setup($hook, $type, $return, $params) {
 /**
  * Allow place owners to add widgets
  *
- * @param string $hook		Equals 'permissions_check'
- * @param string $type		Equals 'widget_layout'
- * @param boolean $return	Current permission
- * @param array $params		Additional params
- * @return boolean			Filtered permission
+ * @param string  $hook   Equals 'permissions_check'
+ * @param string  $type   Equals 'widget_layout'
+ * @param boolean $return Current permission
+ * @param array   $params Additional params
+ * @return boolean Filtered permission
  */
 function widget_layout_permissions_check($hook, $type, $return, $params) {
 
@@ -258,11 +258,11 @@ function widget_layout_permissions_check($hook, $type, $return, $params) {
 /**
  * Setup sitewide maps
  *
- * @param string $hook
- * @param string $type
- * @param array $return
- * @param array $params
- * @return string
+ * @param string $hook   'search_site'
+ * @param string $type   'maps'
+ * @param array  $return List of maps
+ * @param array  $params Additioanl params
+ * @return array
  */
 function setup_site_search_maps($hook, $type, $return, $params) {
 

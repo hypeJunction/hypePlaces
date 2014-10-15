@@ -4,7 +4,8 @@ namespace hypeJunction\Places;
 
 /**
  * Get an array of icon sizes for this entity
- * @param ElggEntity $entity
+ *
+ * @param ElggEntity $entity Entity for which icons sizes are to be retrieved
  * @return array
  */
 function get_icon_sizes($entity) {

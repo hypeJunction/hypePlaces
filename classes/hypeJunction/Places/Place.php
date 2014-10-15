@@ -4,11 +4,21 @@ namespace hypeJunction\Places;
 
 use ElggObject;
 
+/**
+ * Place class
+ *
+ * @package    hypeJunction
+ * @subpackage Places
+ */
 class Place extends ElggObject {
 
 	const SUBTYPE = 'hjplace';
 	const CHECKIN_DURATION = 60; // 1 HOUR
-	
+
+	/**
+	 * Initialize object attributes
+	 * @return void
+	 */
 	protected function initializeAttributes() {
 		parent::initializeAttributes();
 		$this->attributes['subtype'] = self::SUBTYPE;
@@ -32,21 +42,22 @@ class Place extends ElggObject {
 
 	/**
 	 * Get the duration of a checkin
-	 * @return integer	Duration in seconds
+	 * @return integer Duration in seconds
 	 */
 	public function getCheckinDuration() {
 		$minutes = elgg_get_plugin_setting('checkin_duration', PLUGIN_ID);
 		if (!$minutes) {
 			$minutes = self::CHECKIN_DURATION;
 		}
-		return $minutes*60;
+		return $minutes * 60;
 	}
 
 	/**
 	 * Get checkins
-	 * @param array $options
-	 * @param boolean $all_time
-	 * @return mixed
+	 *
+	 * @param array   $options  Options to pass to elgg_get_annotations
+	 * @param boolean $all_time Restrict to currently checked in users
+	 * @return array|false
 	 */
 	public function getCheckins($options = array(), $all_time = false) {
 		$defaults = array(
@@ -64,15 +75,16 @@ class Place extends ElggObject {
 
 	/**
 	 * Check if the user is checked in at the place
-	 * @param integer $user_guid
-	 * @return integer	count of checkins within checkin duration limit
+	 *
+	 * @param integer $user_guid GUID of the user to check
+	 * @return integer Count of checkins within checkin duration limit
 	 */
 	public function isCheckedIn($user_guid = 0) {
 
 		if (!$user_guid) {
 			$user_guid = elgg_get_logged_in_user_guid();
 		}
-		
+
 		return elgg_get_annotations(array(
 			'guids' => $this->guid,
 			'annotation_owner_guids' => sanitize_int($user_guid),
@@ -80,13 +92,13 @@ class Place extends ElggObject {
 			'annotation_created_time_lower' => time() - $this->getCheckinDuration(),
 			'count' => true,
 		));
-
 	}
 
 	/**
 	 * Checkin a user to this place
-	 * @param integer $user_guid
-	 * @return integer	ID of the checkin annotation
+	 *
+	 * @param integer $user_guid GUID of the user to checking
+	 * @return integer ID of the checkin annotation
 	 */
 	public function checkIn($user_guid = 0) {
 		if (!$user_guid) {
@@ -100,5 +112,5 @@ class Place extends ElggObject {
 
 		return $id;
 	}
-	
+
 }

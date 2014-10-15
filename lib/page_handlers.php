@@ -5,8 +5,8 @@ namespace hypeJunction\Places;
 /**
  * Digital products pagehandler
  *
- * @param array $page		Array of URL segments
- * @param string $handler	Handler name
+ * @param array  $page    Array of URL segments
+ * @param string $handler Handler name
  * @return boolean
  */
 function page_handler($page, $handler) {

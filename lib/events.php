@@ -4,6 +4,7 @@ namespace hypeJunction\Places;
 
 /**
  * Setup menus
+ * @return void
  */
 function pagesetup() {
 
