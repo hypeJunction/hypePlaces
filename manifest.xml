@@ -2,7 +2,7 @@
 <plugin_manifest xmlns="http://www.elgg.org/plugin_manifest/1.8">
 
 	<name>hypePlaces</name>
-	<version>3.0.0.0</version>
+	<version>3.1.0</version>
 
 	<description>Directory of Businesses, Places of Interests and Private Locations</description>
 	<category>maps</category>
@@ -19,6 +19,11 @@
 		<version>1.9</version>
 	</requires>
 
+	<requires>
+		<type>plugin</type>
+		<name>hypeFilestore</name>
+	</requires>
+	
 	<suggests>
 		<type>plugin</type>
 		<name>hypeMaps</name>

@@ -1,17 +1,17 @@
 [
     {
         "name": "composer/installers",
-        "version": "v1.0.15",
-        "version_normalized": "1.0.15.0",
+        "version": "v1.0.18",
+        "version_normalized": "1.0.18.0",
         "source": {
             "type": "git",
             "url": "https://github.com/composer/installers.git",
-            "reference": "8e6a72a78f6cfd537fde3350720dfdc9ae3c5621"
+            "reference": "74fb0a7a1a23696d9c8cc2fba5903f6711cdd067"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/composer/installers/zipball/8e6a72a78f6cfd537fde3350720dfdc9ae3c5621",
-            "reference": "8e6a72a78f6cfd537fde3350720dfdc9ae3c5621",
+            "url": "https://api.github.com/repos/composer/installers/zipball/74fb0a7a1a23696d9c8cc2fba5903f6711cdd067",
+            "reference": "74fb0a7a1a23696d9c8cc2fba5903f6711cdd067",
             "shasum": ""
         },
         "replace": {
@@ -22,7 +22,7 @@
             "composer/composer": "1.0.*@dev",
             "phpunit/phpunit": "4.1.*"
         },
-        "time": "2014-06-23 16:25:28",
+        "time": "2014-08-18 20:00:12",
         "type": "composer-installer",
         "extra": {
             "class": "Composer\\Installers\\Installer",
@@ -44,8 +44,7 @@
             {
                 "name": "Kyle Robinson Young",
                 "email": "kyle@dontkry.com",
-                "homepage": "https://github.com/shama",
-                "role": "Developer"
+                "homepage": "https://github.com/shama"
             }
         ],
         "description": "A multi-framework Composer library installer",
@@ -61,6 +60,7 @@
             "annotatecms",
             "bitrix",
             "cakephp",
+            "chef",
             "codeigniter",
             "concrete5",
             "croogo",
@@ -80,6 +80,7 @@
             "phpbb",
             "piwik",
             "ppi",
+            "puppet",
             "roundcube",
             "shopware",
             "silverstripe",
@@ -91,95 +92,21 @@
         ]
     },
     {
-        "name": "smottt/wideimage",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/smottt/WideImage.git",
-            "reference": "658e6b8699255724589e8fb86959306ec64af318"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/smottt/WideImage/zipball/658e6b8699255724589e8fb86959306ec64af318",
-            "reference": "658e6b8699255724589e8fb86959306ec64af318",
-            "shasum": ""
-        },
-        "time": "2014-02-10 17:56:34",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "WideImage": "lib/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "GPL-2.0",
-            "LGPL-2.1"
-        ],
-        "description": "An open-source PHP library for image manipulation. (With namespaces, PHP 5.3+)",
-        "homepage": "http://wideimage.sourceforge.net"
-    },
-    {
-        "name": "hypejunction/cmp-filestore",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/hypeJunction/cmp-filestore.git",
-            "reference": "f0f6b97a53211410c2a894ea64bfaff76d7684fa"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/hypeJunction/cmp-filestore/zipball/f0f6b97a53211410c2a894ea64bfaff76d7684fa",
-            "reference": "f0f6b97a53211410c2a894ea64bfaff76d7684fa",
-            "shasum": ""
-        },
-        "require": {
-            "smottt/wideimage": "dev-master"
-        },
-        "time": "2014-06-14 11:59:27",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "hypeJunction\\": "classes/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "GPL-2.0"
-        ],
-        "authors": [
-            {
-                "name": "Ismayil Khayredinov",
-                "email": "ismayil.khayredinov@gmail.com"
-            }
-        ],
-        "description": "Filestore classes",
-        "homepage": "http://hypejunction.com",
-        "keywords": [
-            "classes",
-            "filestore"
-        ]
-    },
-    {
         "name": "hypejunction/cmp-lists",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/hypeJunction/cmp-lists.git",
-            "reference": "4e9a5288487f6d7e0994c226f24621e0d1fee697"
+            "reference": "d158309a281ba5e43ef73258a72381111bf77c65"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/hypeJunction/cmp-lists/zipball/4e9a5288487f6d7e0994c226f24621e0d1fee697",
-            "reference": "4e9a5288487f6d7e0994c226f24621e0d1fee697",
+            "url": "https://api.github.com/repos/hypeJunction/cmp-lists/zipball/d158309a281ba5e43ef73258a72381111bf77c65",
+            "reference": "d158309a281ba5e43ef73258a72381111bf77c65",
             "shasum": ""
         },
-        "time": "2014-07-08 21:14:16",
+        "time": "2014-08-07 12:43:55",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
