@@ -2,6 +2,8 @@
 
 namespace hypeJunction\Places;
 
+use hypeJunction\Filestore\IconHandler;
+
 /**
  * Digital products pagehandler
  *
@@ -200,12 +202,8 @@ function page_handler($page, $handler) {
 			if (!array_key_exists($size, $config)) {
 				$size = 'medium';
 			}
-
-			set_input('guid', $guid);
-			set_input('size', $size);
-
-			include dirname(dirname(__FILE__)) . "/pages/icon/icon.php";
-			exit;
+			IconHandler::outputRawIcon($entity->guid, $size);
+			break;
 	}
 
 	if ($content) {
