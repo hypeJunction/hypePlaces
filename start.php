@@ -24,7 +24,6 @@ require_once __DIR__ . '/lib/page_handlers.php';
 
 elgg_register_event_handler('init', 'system', __NAMESPACE__ . '\\init');
 elgg_register_event_handler('init', 'system', __NAMESPACE__ . '\\pagesetup');
-elgg_register_event_handler('upgrade', 'system', __NAMESPACE__ . '\\upgrade');
 
 function init() {
 
@@ -32,7 +31,7 @@ function init() {
 	 * Handle pages and URLs
 	 */
 	elgg_register_page_handler(PAGEHANDLER, __NAMESPACE__ . '\\page_handler');
-	elgg_register_entity_url_handler('object', 'hjplace', __NAMESPACE__ . '\\url_handler');
+	elgg_register_plugin_hook_handler('entity:url', 'object', __NAMESPACE__ . '\\url_handler');
 
 	/**
 	 * Add places to search
@@ -89,7 +88,8 @@ function init() {
 		elgg_extend_view('groups/tool_latest', 'framework/places/group_module');
 	}
 
-	elgg_register_widget_type('places_about', elgg_echo('places:widgets:about'), elgg_echo('places:widgets:about:desc'), 'places');
-	elgg_register_widget_type('places_activity', elgg_echo('places:widgets:activity'), elgg_echo('places:widgets:activity:desc'), 'places');
+	elgg_register_widget_type('places_about', elgg_echo('places:widgets:about'), elgg_echo('places:widgets:about:desc'), array('places'));
+	elgg_register_widget_type('places_activity', elgg_echo('places:widgets:activity'), elgg_echo('places:widgets:activity:desc'), array('places'));
+	elgg_register_widget_type('places_comments', elgg_echo('places:widgets:comments'), elgg_echo('places:widgets:comments:desc'), array('places'));
 	
 }

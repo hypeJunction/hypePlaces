@@ -5,6 +5,26 @@ namespace hypeJunction\Places;
 use ElggMenuItem;
 
 /**
+ * Give entities their own URLs
+ *
+ * @param string $hook		Equals 'entity:url'
+ * @param string $type		Equals 'object'
+ * @param string $return	Current URL
+ * @param array $params		Additional params
+ * @return string			Filtered URL
+ */
+function url_handler($hook, $type, $return, $params) {
+	$entity = elgg_extract('entity', $params);
+
+	if (elgg_instanceof($entity, 'object', 'hjplace')) {
+		$friendly_title = elgg_get_friendly_title($entity->title);
+		return elgg_normalize_url(PAGEHANDLER . '/profile/' . $entity->guid . '/' . $friendly_title);
+	}
+
+	return $return;
+}
+
+/**
  * Get icon URL hook
  *
  * @param string $hook		Equals 'entity:icon:url'
