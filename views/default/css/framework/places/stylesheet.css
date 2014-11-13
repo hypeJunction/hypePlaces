@@ -516,8 +516,8 @@ body.places-state-loading:before {
   clear: both;
 }
 .places-row [class*="places-col"] {
-  -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -525,8 +525,8 @@ body.places-state-loading:before {
   font-size: 13px;
 }
 .elgg-form.places-form * {
-  -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 .elgg-form.places-form fieldset.has-legend {
@@ -570,8 +570,8 @@ body.places-state-loading:before {
 }
 .elgg-form.places-form .parsley-error {
   border-color: #ee5f5b;
-  -webkit-box-shadow: 0 0 6px #f8b9b7;
   -moz-box-shadow: 0 0 6px #f8b9b7;
+  -webkit-box-shadow: 0 0 6px #f8b9b7;
   box-shadow: 0 0 6px #f8b9b7;
 }
 .elgg-form.places-form .parsley-error-list {
@@ -585,21 +585,21 @@ body.places-state-loading:before {
 .places-profile-header {
   display: inline-block;
   border: solid 1px #dddddd;
-  -webkit-box-shadow: none;
   -moz-box-shadow: none;
+  -webkit-box-shadow: none;
   box-shadow: none;
   position: relative;
   width: 100%;
   margin-bottom: 20px;
 }
 .places-profile-header:hover, .places-profile-header:focus, .places-profile-header.elgg-state-selected {
-  -webkit-box-shadow: 0 0 6px 1px rgba(70, 144, 214, 0.5);
   -moz-box-shadow: 0 0 6px 1px rgba(70, 144, 214, 0.5);
+  -webkit-box-shadow: 0 0 6px 1px rgba(70, 144, 214, 0.5);
   box-shadow: 0 0 6px 1px rgba(70, 144, 214, 0.5);
 }
 .places-profile-header * {
-  -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 .places-profile-header .places-profile-details {
@@ -795,21 +795,32 @@ body.places-state-loading:before {
     clear: both;
   }
 }
+.places-gallery > li {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  max-width: 100%;
+}
 .places-gallery > li ul {
   margin-left: 0;
 }
 .places-gallery > li > .elgg-module {
   display: inline-block;
   border: solid 1px #dddddd;
-  -webkit-box-shadow: none;
   -moz-box-shadow: none;
+  -webkit-box-shadow: none;
   box-shadow: none;
+  display: block;
+  max-width: 100%;
   position: relative;
 }
 .places-gallery > li > .elgg-module:hover, .places-gallery > li > .elgg-module:focus, .places-gallery > li > .elgg-module.elgg-state-selected {
-  -webkit-box-shadow: 0 0 6px 1px rgba(70, 144, 214, 0.5);
   -moz-box-shadow: 0 0 6px 1px rgba(70, 144, 214, 0.5);
+  -webkit-box-shadow: 0 0 6px 1px rgba(70, 144, 214, 0.5);
   box-shadow: 0 0 6px 1px rgba(70, 144, 214, 0.5);
+}
+.places-gallery > li > .elgg-module .places-icon {
+  max-width: 100%;
 }
 
 img.places-static-map {
@@ -833,10 +844,8 @@ img.places-static-map {
   margin-left: 4px;
   background: #eaeaea;
   color: #666;
-  -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
+  -webkit-border-radius: 5px;
   border-radius: 5px;
   font-size: 10px;
   font-weight: 600;
