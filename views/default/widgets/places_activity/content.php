@@ -3,7 +3,7 @@
 namespace hypeJunction\Places;
 
 $options = array(
-	'limit' => $vars['entity']->num_display,
+	'limit' => $entity->num_display,
 	'pagination' => false,
 	'object_guids' => elgg_get_page_owner_guid(),
 );
