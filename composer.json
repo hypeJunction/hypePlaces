@@ -17,17 +17,17 @@
 	"extra": {
 		"installer-name": "hypePlaces"
 	},
-	"config": {
-		"vendor-dir": "vendors",
-		"preferred-install": "dist"
+		"config": {
+		"vendor-dir": "/vendor/"
 	},
 	"require": {
 		"php": ">=5.3.3",
-		"hypejunction/cmp-lists": "1.0.*"
+		"composer/installers": ">=1.0.8",
+		"hypejunction/hypelists": ">=3.2"
 	},
 	"autoload": {
-		"psr-4": {
-			"hypeJunction\\": "classes/hypeJunction/"
+		"psr-0": {
+			"": "classes/"
 		}
 	}
 }

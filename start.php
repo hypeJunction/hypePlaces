@@ -15,7 +15,7 @@ namespace hypeJunction\Places;
 const PLUGIN_ID = 'hypePlaces';
 const PAGEHANDLER = 'places';
 
-require_once __DIR__ . '/vendors/autoload.php';
+require_once dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php';
 
 require_once __DIR__ . '/lib/functions.php';
 require_once __DIR__ . '/lib/events.php';
@@ -43,12 +43,6 @@ function init() {
 	 * JS, CSS and Views
 	 */
 	elgg_extend_view('css/elgg', 'css/framework/places/css');
-
-	// Load fonts
-	elgg_register_css('fonts.font-awesome', '/mod/' . PLUGIN_ID . '/vendors/fonts/font-awesome.css');
-	elgg_load_css('fonts.font-awesome');
-	elgg_register_css('fonts.open-sans', '/mod/' . PLUGIN_ID . '/vendors/fonts/open-sans.css');
-	elgg_load_css('fonts.open-sans');
 
 	elgg_extend_view('js/elgg', 'js/framework/places/interface');
 

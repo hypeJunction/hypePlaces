@@ -3,8 +3,5 @@
 .htaccess
 robots.txt
 /nbproject/
-composer.lock
 /.sass-cache/
-
-vendors/.git
-vendors/**/.git
+/vendor/
