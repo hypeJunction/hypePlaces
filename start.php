@@ -15,8 +15,7 @@ namespace hypeJunction\Places;
 const PLUGIN_ID = 'hypePlaces';
 const PAGEHANDLER = 'places';
 
-require_once dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php';
-
+// Elgg autoloader is already loaded when start.php runs
 require_once __DIR__ . '/lib/functions.php';
 require_once __DIR__ . '/lib/events.php';
 require_once __DIR__ . '/lib/hooks.php';
