@@ -15,8 +15,8 @@ use ElggMenuItem;
 function url_handler($hook, $type, $return, $params)
 {
     $entity = elgg_extract('entity', $params);
-    if (elgg_instanceof($entity, 'object', 'hjplace')) {
-        $friendly_title = elgg_get_friendly_title($entity->title);
+    if ($entity instanceof Place) {
+        $friendly_title = rawurlencode($entity->getDisplayName());
         return elgg_normalize_url(PAGEHANDLER . '/profile/' . $entity->guid . '/' . $friendly_title);
     }
     return $return;
@@ -35,7 +35,7 @@ function entity_icon_url($hook, $type, $return, $params)
 {
     $entity = elgg_extract('entity', $params);
     $size = elgg_extract('size', $params, 'medium');
-    if (elgg_instanceof($entity, 'object', Place::SUBTYPE)) {
+    if ($entity instanceof Place) {
         if (!$entity->icontime) {
             return elgg_normalize_url('mod/' . PLUGIN_ID . '/graphics/icon/' . $size . '.png');
         }
@@ -55,7 +55,7 @@ function entity_icon_url($hook, $type, $return, $params)
 function entity_icon_sizes($hook, $type, $return, $params)
 {
     $entity = elgg_extract('entity', $params);
-    if (!elgg_instanceof($entity, 'object', Place::SUBTYPE)) {
+    if (!$entity instanceof Place) {
         return $return;
     }
     $config = array('125' => array('w' => 125, 'h' => 125, 'square' => false, 'upscale' => true), '325x200' => array('w' => 325, 'h' => 200, 'square' => false, 'upscale' => true, 'croppable' => true));
@@ -133,9 +133,9 @@ function interactions_menu_setup($hook, $type, $return, $params)
 function owner_block_menu_setup($hook, $type, $return, $params)
 {
     $entity = elgg_extract('entity', $params);
-    if (elgg_instanceof($entity, 'group') && $entity->places_enable !== 'no') {
+    if ($entity instanceof \ElggGroup && $entity->places_enable !== 'no') {
         $return[] = ElggMenuItem::factory(array('name' => 'group:places', 'text' => elgg_echo('places:group'), 'href' => PAGEHANDLER . "/group/{$entity->guid}"));
-    } else if (elgg_instanceof($entity, 'user')) {
+    } else if ($entity instanceof \ElggUser) {
         $return[] = ElggMenuItem::factory(array('name' => 'user:albums', 'text' => elgg_echo('places'), 'href' => PAGEHANDLER . "/owner/{$entity->username}"));
     }
     return $return;
@@ -154,7 +154,7 @@ function widget_layout_permissions_check($hook, $type, $return, $params)
     $context = elgg_extract('context', $params);
     $user = elgg_extract('user', $params);
     $page_owner = elgg_extract('page_owner', $params);
-    if (!elgg_instanceof($user) || !elgg_instanceof($page_owner)) {
+    if (!$user instanceof \ElggEntity || !$page_owner instanceof \ElggEntity) {
         return $return;
     }
     if ($context == PAGEHANDLER && $user->guid == $page_owner->owner_guid) {

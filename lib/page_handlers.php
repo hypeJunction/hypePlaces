@@ -69,7 +69,7 @@ function page_handler($page, $handler) {
 
 			$group = get_entity($page[1]);
 
-			if (!elgg_instanceof($group, 'group')) {
+			if (!$group instanceof \ElggGroup) {
 				return false;
 			}
 
@@ -88,7 +88,7 @@ function page_handler($page, $handler) {
 
 		case 'bookmarked' :
 
-			gatekeeper();
+			elgg_gatekeeper();
 
 			$username = $page[1];
 			if ($username) {
@@ -133,9 +133,9 @@ function page_handler($page, $handler) {
 			}
 
 			$container = $entity->getContainerEntity();
-			if (elgg_instanceof($container, 'group')) {
+			if ($container instanceof \ElggGroup) {
 				elgg_set_page_owner_guid($container->guid);
-				group_gatekeeper(true);
+				elgg_group_gatekeeper(true);
 				elgg_push_breadcrumb($container->name, $handler . '/group/' . $container->guid);
 			} else {
 				$owner = $entity->getOwnerEntity();
@@ -161,7 +161,7 @@ function page_handler($page, $handler) {
 
 			$container_guid = $page[1];
 			$container = get_entity($container_guid);
-			if (elgg_instanceof($container) && !$container->canWriteToContainer(0, 'object', Place::SUBTYPE)) {
+			if ($container instanceof \ElggEntity && !$container->canWriteToContainer(0, 'object', Place::SUBTYPE)) {
 				return false;
 			}
 
@@ -210,7 +210,7 @@ function page_handler($page, $handler) {
 		if (elgg_is_xhr()) {
 			echo $content;
 		} else {
-			$layout = elgg_view_layout('content', array(
+			$layout = elgg_view_layout('default', array(
 				'header_override' => (isset($header_override)) ? $header_override : null,
 				'title' => $title,
 				'content' => $content,

@@ -87,7 +87,7 @@ class Place extends ElggObject {
 
 		return elgg_get_annotations(array(
 			'guids' => $this->guid,
-			'annotation_owner_guids' => sanitize_int($user_guid),
+			'annotation_owner_guids' => (int) $user_guid,
 			'annotation_names' => 'checkin',
 			'annotation_created_time_lower' => time() - $this->getCheckinDuration(),
 			'count' => true,
