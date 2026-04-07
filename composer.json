@@ -18,7 +18,10 @@
 		"installer-name": "hypePlaces"
 	},
 		"config": {
-		"vendor-dir": "/vendor/"
+		"vendor-dir": "/vendor/",
+		"allow-plugins": {
+			"composer/installers": true
+		}
 	},
 	"require": {
 		"php": ">=5.3.3",
@@ -31,4 +34,3 @@
 		}
 	}
 }
-
