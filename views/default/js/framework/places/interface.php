@@ -2,7 +2,7 @@
 
 	elgg.provide('elgg.places');
 	elgg.places.interface = function() {
-		$('[data-place][data-status]').live('click', function(e) {
+		$(document).on('click', '[data-place][data-status]', function(e) {
 
 			e.preventDefault();
 			var $elem = $(this);

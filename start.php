@@ -22,9 +22,15 @@ require_once __DIR__ . '/lib/hooks.php';
 require_once __DIR__ . '/lib/page_handlers.php';
 
 elgg_register_event_handler('init', 'system', __NAMESPACE__ . '\\init');
-elgg_register_event_handler('init', 'system', __NAMESPACE__ . '\\pagesetup');
 
 function init() {
+
+	// Site menu
+	elgg_register_menu_item('site', [
+		'name' => 'places',
+		'text' => elgg_echo('places'),
+		'href' => 'places',
+	]);
 
 	/**
 	 * Handle pages and URLs
@@ -77,7 +83,10 @@ function init() {
 
 	// Add group option
 	if (HYPEMAPS_GROUP_PLACES) {
-		add_group_tool_option('places', elgg_echo('places:groupoption:enable'), true);
+		elgg()->group_tools->register('places', [
+			'label' => elgg_echo('places:groupoption:enable'),
+			'default_on' => true,
+		]);
 		elgg_extend_view('groups/tool_latest', 'framework/places/group_module');
 	}
 

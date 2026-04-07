@@ -25,7 +25,7 @@ $country_iso = elgg_extract('country_code', $address);
 $country = elgg_extract('country', $address);
 
 if (!$title || !$street_address || !$locality || !$postal_code || (!$country_iso && !$country)) {
-	register_error(elgg_echo('places:place:edit:error:required_field_empty'));
+	elgg_register_error_message(elgg_echo('places:place:edit:error:required_field_empty'));
 	forward(REFERER);
 }
 
@@ -41,8 +41,8 @@ if (!$entity) {
 $entity->access_id = ($access_id == '') ? $container->access_id : $access_id;
 $entity->title = $title;
 $entity->description = $description;
-$entity->tags = string_to_tag_array($tags);
-$entity->specialties = string_to_tag_array($specialties);
+$entity->tags = elgg_string_to_array($tags);
+$entity->specialties = elgg_string_to_array($specialties);
 $entity->markertype = $markertype;
 $entity->street_address = $street_address;
 $entity->extended_address = $extended_address;
@@ -79,11 +79,11 @@ if ($entity->save()) {
 		));
 	}
 	elgg_clear_sticky_form('places/edit');
-	system_message(elgg_echo('places:edit:success', array($entity->title)));
+	elgg_register_success_message(elgg_echo('places:edit:success', array($entity->title)));
 
 	$forward_url = $entity->getURL();
 } else {
-	register_error(elgg_echo('places:edit:error'));
+	elgg_register_error_message(elgg_echo('places:edit:error'));
 	$forward_url = REFERER;
 }
 
