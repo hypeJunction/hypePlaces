@@ -2,26 +2,26 @@
 
 namespace hypeJunction\Places;
 
-$guid = get_input('guid');
+$guid = (int) get_input('guid');
 $entity = get_entity($guid);
 
-if (!$entity) {
-	elgg_register_error_message(elgg_echo('places:error:not_found'));
-	forward(REFERER);
+if (!$entity instanceof Place) {
+	return elgg_error_response(elgg_echo('places:error:not_found'));
 }
 
-if (!check_entity_relationship(elgg_get_logged_in_user_guid(), 'bookmarked', $guid)) {
-	add_entity_relationship(elgg_get_logged_in_user_guid(), 'bookmarked', $guid);
-	elgg_create_river_item(array(
-		'view' => 'framework/river/places/bookmark',
-		'action_type' => 'stream:places:bookmark',
-		'subject_guid' => elgg_get_logged_in_user_guid(),
-		'object_guid' => $entity->guid,
-		'access_id' => $entity->access_id
-	));
-	elgg_register_success_message(elgg_echo('places:bookmark:create:success'));
-	forward(REFERER);
+$user_guid = elgg_get_logged_in_user_guid();
+
+if (check_entity_relationship($user_guid, 'bookmarked', $guid)) {
+	return elgg_error_response(elgg_echo('places:bookmark:create:error'));
 }
 
-elgg_register_error_message(elgg_echo('places:bookmark:create:error'));
-forward(REFERER);
+add_entity_relationship($user_guid, 'bookmarked', $guid);
+elgg_create_river_item([
+	'view' => 'river/object/hjplace/bookmark',
+	'action_type' => 'stream:places:bookmark',
+	'subject_guid' => $user_guid,
+	'object_guid' => $entity->guid,
+	'access_id' => $entity->access_id,
+]);
+
+return elgg_ok_response('', elgg_echo('places:bookmark:create:success'), REFERRER);

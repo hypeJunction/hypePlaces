@@ -1,22 +1,14 @@
 <?php
 
-$guid = get_input('guid');
+namespace hypeJunction\Places;
+
+$guid = (int) get_input('guid');
 $entity = get_entity($guid);
 
-if (!$entity) {
-	elgg_register_error_message(elgg_echo('places:error:not_found'));
-	forward(REFERER);
-}
-
-if (!elgg_trigger_plugin_hook('permissions_check', 'places', array(
-			'action' => 'unfeature',
-			'entity' => $entity
-				), true)) {
-	elgg_register_error_message(elgg_echo('places:error:permissions'));
-	forward(REFERER);
+if (!$entity instanceof Place) {
+	return elgg_error_response(elgg_echo('places:error:not_found'));
 }
 
 $entity->featured = true;
 
-elgg_register_success_message(elgg_echo('places:feature:success', array($entity->title)));
-forward(REFERER);
+return elgg_ok_response('', elgg_echo('places:feature:success', [$entity->getDisplayName()]), REFERRER);

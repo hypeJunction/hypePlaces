@@ -2,19 +2,22 @@
 
 namespace hypeJunction\Places;
 
-$guid = get_input('guid');
+$guid = (int) get_input('guid');
 $entity = get_entity($guid);
 
-$title = $entity->title;
-
-if (($entity) && ($entity->canEdit())) {
-	if ($entity->delete()) {
-		elgg_register_success_message(elgg_echo('places:delete:success', array($title)));
-	} else {
-		elgg_register_error_message(elgg_echo('places:delete:error', array($title)));
-	}
-} else {
-	elgg_register_error_message(elgg_echo('places:delete:error', array($title)));
+if (!$entity instanceof Place || !$entity->canEdit()) {
+	return elgg_error_response(elgg_echo('places:delete:error', [$entity ? $entity->getDisplayName() : '']));
 }
 
-forward(REFERER);
+$title = $entity->getDisplayName();
+$owner = $entity->getOwnerEntity();
+
+if (!$entity->delete()) {
+	return elgg_error_response(elgg_echo('places:delete:error', [$title]));
+}
+
+$forward = $owner instanceof \ElggUser
+	? elgg_generate_url('collection:object:hjplace:owner', ['username' => $owner->username])
+	: elgg_generate_url('collection:object:hjplace:all');
+
+return elgg_ok_response('', elgg_echo('places:delete:success', [$title]), $forward);

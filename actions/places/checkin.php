@@ -2,28 +2,29 @@
 
 namespace hypeJunction\Places;
 
-$guid = get_input('guid');
+$guid = (int) get_input('guid');
 $entity = get_entity($guid);
 
 if (!$entity instanceof Place) {
-	elgg_register_error_message(elgg_echo('places:error:not_found'));
-	forward(REFERER);
+	return elgg_error_response(elgg_echo('places:error:not_found'));
 }
 
-if (!$entity->isCheckedIn()) {
-	if ($id = $entity->checkIn()) {
-		elgg_create_river_item(array(
-			'view' => 'framework/river/places/checkin',
-			'action_type' => 'stream:places:checkin',
-			'subject_guid' => elgg_get_logged_in_user_guid(),
-			'object_guid' => $entity->guid,
-			'acess_id' => $entity->access_id,
-			'annotation_id' => $id
-		));
-		elgg_register_success_message(elgg_echo('places:checkin:success', array($entity->title)));
-		forward(REFERER);
-	}
+if ($entity->isCheckedIn()) {
+	return elgg_error_response(elgg_echo('places:checkin:error', [$entity->getDisplayName()]));
 }
 
-elgg_register_error_message(elgg_echo('places:checkin:error', array($entity->title)));
-forward(REFERER);
+$id = $entity->checkIn();
+if (!$id) {
+	return elgg_error_response(elgg_echo('places:checkin:error', [$entity->getDisplayName()]));
+}
+
+elgg_create_river_item([
+	'view' => 'river/object/hjplace/checkin',
+	'action_type' => 'stream:places:checkin',
+	'subject_guid' => elgg_get_logged_in_user_guid(),
+	'object_guid' => $entity->guid,
+	'access_id' => $entity->access_id,
+	'annotation_id' => $id,
+]);
+
+return elgg_ok_response('', elgg_echo('places:checkin:success', [$entity->getDisplayName()]), REFERRER);
