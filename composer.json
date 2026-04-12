@@ -1,13 +1,16 @@
 {
 	"name": "hypejunction/hypeplaces",
 	"type": "elgg-plugin",
-	"repository": "hypeJunction/hypePlaces",
 	"description": "Directory of Businesses, Places of Interests and Private Locations",
 	"homepage": "http://hypejunction.com",
 	"keywords": [
-		"elgg", "plugin", "places", "maps", "directory"
+		"elgg",
+		"plugin",
+		"places",
+		"maps",
+		"directory"
 	],
-	"license": "GPL-2.0",
+	"license": "GPL-2.0-or-later",
 	"authors": [
 		{
 			"name": "Ismayil Khayredinov",
@@ -15,22 +18,24 @@
 		}
 	],
 	"extra": {
-		"installer-name": "hypePlaces"
+		"elgg-plugin": {
+			"id": "hypeplaces"
+		}
 	},
-		"config": {
-		"vendor-dir": "/vendor/",
+	"config": {
 		"allow-plugins": {
 			"composer/installers": true
 		}
 	},
 	"require": {
-		"php": ">=5.3.3",
-		"composer/installers": ">=1.0.8",
-		"hypejunction/hypelists": ">=3.2"
+		"php": ">=7.4",
+		"elgg/elgg": "^4.0",
+		"composer/installers": "^2.0",
+		"hypejunction/hypelists": "*"
 	},
 	"autoload": {
-		"psr-0": {
-			"": "classes/"
+		"psr-4": {
+			"hypeJunction\\Places\\": "classes/hypeJunction/Places/"
 		}
 	}
 }
