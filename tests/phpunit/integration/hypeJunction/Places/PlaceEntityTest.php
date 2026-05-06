@@ -5,26 +5,14 @@ namespace hypeJunction\Places;
 use Elgg\IntegrationTestCase;
 use ElggObject;
 
-/**
- * Tests for the Place entity class and its CRUD/metadata behavior.
- *
- * These tests lock in the pre-migration behavior of the hypePlaces plugin's
- * main entity class.
- */
 class PlaceEntityTest extends IntegrationTestCase {
 
     public function up() {
-        // no-op
     }
 
     public function down() {
-        // no-op
     }
 
-    /**
-     * Override plugin ID check so tests run even if the plugin is not
-     * registered as "active" in the test DB.
-     */
     public function getPluginID(): string {
         return '';
     }
@@ -46,6 +34,7 @@ class PlaceEntityTest extends IntegrationTestCase {
 
     public function testPlaceCanBeSaved(): void {
         $user = $this->createUser();
+        _elgg_services()->session_manager->setLoggedInUser($user);
         $place = new Place();
         $place->owner_guid = $user->guid;
         $place->container_guid = $user->guid;
@@ -61,10 +50,12 @@ class PlaceEntityTest extends IntegrationTestCase {
         $this->assertEquals('Test Place', $loaded->title);
 
         $place->delete();
+        _elgg_services()->session_manager->removeLoggedInUser();
     }
 
     public function testPlacePersistsAddressMetadata(): void {
         $user = $this->createUser();
+        _elgg_services()->session_manager->setLoggedInUser($user);
         $place = new Place();
         $place->owner_guid = $user->guid;
         $place->container_guid = $user->guid;
@@ -83,8 +74,8 @@ class PlaceEntityTest extends IntegrationTestCase {
         $this->assertTrue($place->save() !== false);
 
         _elgg_services()->entityCache->delete($place->guid);
-        /** @var Place $loaded */
         $loaded = get_entity($place->guid);
+        $this->assertInstanceOf(Place::class, $loaded);
 
         $address = $loaded->getAddress();
         $this->assertEquals('123 Main St', $address['street_address']);
@@ -100,6 +91,7 @@ class PlaceEntityTest extends IntegrationTestCase {
         $this->assertEquals('example', $loaded->twitter);
 
         $place->delete();
+        _elgg_services()->session_manager->removeLoggedInUser();
     }
 
     public function testGetAddressReturnsAllKeys(): void {
@@ -116,7 +108,6 @@ class PlaceEntityTest extends IntegrationTestCase {
 
     public function testGetCheckinDurationDefaultIsOneHour(): void {
         $place = new Place();
-        // With no plugin setting, default is 60 minutes => 3600 seconds
         $duration = $place->getCheckinDuration();
         $this->assertIsNumeric($duration);
         $this->assertGreaterThan(0, $duration);
@@ -124,6 +115,7 @@ class PlaceEntityTest extends IntegrationTestCase {
 
     public function testCheckInCreatesAnnotation(): void {
         $user = $this->createUser();
+        _elgg_services()->session_manager->setLoggedInUser($user);
         $place = new Place();
         $place->owner_guid = $user->guid;
         $place->container_guid = $user->guid;
@@ -139,6 +131,7 @@ class PlaceEntityTest extends IntegrationTestCase {
         $this->assertGreaterThan(0, $count);
 
         $place->delete();
+        _elgg_services()->session_manager->removeLoggedInUser();
     }
 
     public function testCheckInWithoutUserReturnsFalseWhenNotLoggedIn(): void {
@@ -147,14 +140,13 @@ class PlaceEntityTest extends IntegrationTestCase {
         $place->container_guid = elgg_get_site_entity()->guid;
         $place->access_id = ACCESS_PUBLIC;
         $place->title = 'Anonymous Checkin';
-        // When not logged in, checkIn() with no arg should return false
-        // (we can't guarantee session state so only call with explicit arg)
         $this->assertFalse($place->checkIn(0));
     }
 
     public function testOwnerCanEditPlace(): void {
         $owner = $this->createUser();
         $other = $this->createUser();
+        _elgg_services()->session_manager->setLoggedInUser($owner);
         $place = new Place();
         $place->owner_guid = $owner->guid;
         $place->container_guid = $owner->guid;
@@ -166,5 +158,6 @@ class PlaceEntityTest extends IntegrationTestCase {
         $this->assertFalse($place->canEdit($other->guid));
 
         $place->delete();
+        _elgg_services()->session_manager->removeLoggedInUser();
     }
 }

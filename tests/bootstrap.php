@@ -18,11 +18,9 @@ spl_autoload_register(function ($class) use ($testClassesDir) {
     }
 });
 
-// Load plugin start.php so classes + functions are available (namespaced helpers, Place class)
+// Load plugin lib files so classes + functions are available (namespaced helpers, Place class)
 $pluginRoot = dirname(__DIR__);
-if (file_exists($pluginRoot . '/start.php')) {
-    // start.php registers init via event handler — safe to include
-    // Classes directory is PSR-0 autoloaded by Elgg already, but include lib/ files
+if (file_exists($pluginRoot . '/elgg-plugin.php')) {
     require_once $pluginRoot . '/classes/hypeJunction/Places/Place.php';
     if (file_exists($pluginRoot . '/lib/functions.php')) {
         require_once $pluginRoot . '/lib/functions.php';

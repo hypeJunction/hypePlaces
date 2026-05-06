@@ -3,7 +3,7 @@
 return [
 	'plugin' => [
 		'name' => 'hypePlaces',
-		'version' => '4.0.0',
+		'version' => '5.0.0',
 		'description' => 'Directory of Businesses, Places of Interests and Private Locations',
 		'category' => ['content', 'directory'],
 		'author' => 'Ismayil Khayredinov (ismayil.khayredinov@gmail.com)',
@@ -83,10 +83,25 @@ return [
 		],
 	],
 
-	'hooks' => [
+	'events' => [
 		'entity:url' => [
 			'object' => [
 				'hypeJunction\\Places\\url_handler' => [],
+			],
+		],
+		'entity:icon:url' => [
+			'object' => [
+				'hypeJunction\\Places\\entity_icon_url' => [],
+			],
+		],
+		'entity:icon:sizes' => [
+			'object' => [
+				'hypeJunction\\Places\\entity_icon_sizes' => [],
+			],
+		],
+		'search:site' => [
+			'maps' => [
+				'hypeJunction\\Places\\setup_site_search_maps' => [],
 			],
 		],
 		'permissions_check' => [

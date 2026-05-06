@@ -2,16 +2,10 @@
 
 namespace hypeJunction\Places;
 
+use Elgg\Event;
 use Elgg\IntegrationTestCase;
 use ElggMenuItem;
 
-/**
- * Tests for the plugin hook handlers defined in lib/hooks.php.
- *
- * These tests call handler functions directly with synthetic params to
- * verify return values. They do not rely on any registered handler state
- * so they work in isolation.
- */
 class HooksTest extends IntegrationTestCase {
 
     public function up() {}
@@ -21,10 +15,15 @@ class HooksTest extends IntegrationTestCase {
         return '';
     }
 
-    private function makePlace(int $owner_guid): Place {
+    private function makeEvent(string $name, string $type, $value, array $params = []): Event {
+        return new Event(elgg(), $name, $type, $value, $params);
+    }
+
+    private function makePlace(\ElggUser $user): Place {
+        _elgg_services()->session_manager->setLoggedInUser($user);
         $place = new Place();
-        $place->owner_guid = $owner_guid;
-        $place->container_guid = $owner_guid;
+        $place->owner_guid = $user->guid;
+        $place->container_guid = $user->guid;
         $place->access_id = ACCESS_PUBLIC;
         $place->title = 'Hook Place';
         $place->save();
@@ -33,17 +32,20 @@ class HooksTest extends IntegrationTestCase {
 
     public function testUrlHandlerReturnsPlaceUrl(): void {
         $user = $this->createUser();
-        $place = $this->makePlace($user->guid);
+        $place = $this->makePlace($user);
 
-        $url = url_handler('entity:url', 'object', '', ['entity' => $place]);
+        $event = $this->makeEvent('entity:url', 'object', '', ['entity' => $place]);
+        $url = url_handler($event);
         $this->assertIsString($url);
-        $this->assertStringContainsString('places/profile/' . $place->guid, $url);
+        $this->assertStringContainsString('places/view/' . $place->guid, $url);
 
         $place->delete();
+        _elgg_services()->session_manager->removeLoggedInUser();
     }
 
     public function testUrlHandlerPassesThroughForNonPlace(): void {
         $user = $this->createUser();
+        _elgg_services()->session_manager->setLoggedInUser($user);
         $obj = new \ElggObject();
         $obj->setSubtype('blog');
         $obj->owner_guid = $user->guid;
@@ -52,30 +54,35 @@ class HooksTest extends IntegrationTestCase {
         $obj->title = 'Not a place';
         $obj->save();
 
-        $result = url_handler('entity:url', 'object', 'original-url', ['entity' => $obj]);
+        $event = $this->makeEvent('entity:url', 'object', 'original-url', ['entity' => $obj]);
+        $result = url_handler($event);
         $this->assertEquals('original-url', $result);
 
         $obj->delete();
+        _elgg_services()->session_manager->removeLoggedInUser();
     }
 
     public function testEntityIconUrlReturnsDefaultWhenNoIcontime(): void {
         $user = $this->createUser();
-        $place = $this->makePlace($user->guid);
+        $place = $this->makePlace($user);
 
-        $result = entity_icon_url('entity:icon:url', 'object', '', [
+        $event = $this->makeEvent('entity:icon:url', 'object', '', [
             'entity' => $place,
             'size' => 'medium',
         ]);
+        $result = entity_icon_url($event);
         $this->assertStringContainsString('hypePlaces/graphics/icon/medium.png', $result);
 
         $place->delete();
+        _elgg_services()->session_manager->removeLoggedInUser();
     }
 
     public function testEntityIconSizesReturnsConfigForPlace(): void {
         $user = $this->createUser();
-        $place = $this->makePlace($user->guid);
+        $place = $this->makePlace($user);
 
-        $result = entity_icon_sizes('entity:icon:sizes', 'object', [], ['entity' => $place]);
+        $event = $this->makeEvent('entity:icon:sizes', 'object', [], ['entity' => $place]);
+        $result = entity_icon_sizes($event);
         $this->assertIsArray($result);
         $this->assertArrayHasKey('125', $result);
         $this->assertArrayHasKey('325x200', $result);
@@ -83,18 +90,21 @@ class HooksTest extends IntegrationTestCase {
         $this->assertEquals(325, $result['325x200']['w']);
 
         $place->delete();
+        _elgg_services()->session_manager->removeLoggedInUser();
     }
 
     public function testEntityIconSizesPassesThroughForNonPlace(): void {
         $existing = ['topbar' => ['w' => 16, 'h' => 16]];
-        $result = entity_icon_sizes('entity:icon:sizes', 'object', $existing, [
+        $event = $this->makeEvent('entity:icon:sizes', 'object', $existing, [
             'entity' => elgg_get_site_entity(),
         ]);
+        $result = entity_icon_sizes($event);
         $this->assertEquals($existing, $result);
     }
 
     public function testSetupSiteSearchMapsRegistersPlacesMap(): void {
-        $result = setup_site_search_maps('search:site', 'maps', [], []);
+        $event = $this->makeEvent('search:site', 'maps', [], []);
+        $result = setup_site_search_maps($event);
         $this->assertIsArray($result);
         $this->assertArrayHasKey('places', $result);
         $this->assertEquals('object', $result['places']['options']['types']);
@@ -102,15 +112,16 @@ class HooksTest extends IntegrationTestCase {
     }
 
     public function testEntityMenuSetupIgnoresNonPlace(): void {
-        $menu = [];
-        $result = entity_menu_setup('register', 'menu:entity', $menu, [
+        $event = $this->makeEvent('register', 'menu:entity', [], [
             'entity' => elgg_get_site_entity(),
         ]);
-        $this->assertEquals($menu, $result);
+        $result = entity_menu_setup($event);
+        $this->assertEquals([], $result);
     }
 
     public function testWidgetLayoutPermissionsCheckPassesThrough(): void {
-        $result = widget_layout_permissions_check('permissions_check', 'widget_layout', false, []);
+        $event = $this->makeEvent('permissions_check', 'widget_layout', false, []);
+        $result = widget_layout_permissions_check($event);
         $this->assertFalse($result);
     }
 }

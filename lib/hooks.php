@@ -2,12 +2,11 @@
 
 namespace hypeJunction\Places;
 
+use Elgg\Event;
 use ElggMenuItem;
 
-/**
- * Site menu handler — adds the "Places" menu item to the site navigation.
- */
-function site_menu_setup($hook, $type, $return, $params) {
+function site_menu_setup(Event $event) {
+	$return = $event->getValue();
 	$return[] = ElggMenuItem::factory([
 		'name' => 'places',
 		'text' => elgg_echo('places'),
@@ -16,28 +15,23 @@ function site_menu_setup($hook, $type, $return, $params) {
 	return $return;
 }
 
-/**
- * Give entities their own URLs.
- */
-function url_handler($hook, $type, $return, $params) {
-	$entity = elgg_extract('entity', $params);
+function url_handler(Event $event) {
+	$entity = $event->getParam('entity');
 	if ($entity instanceof Place) {
 		return elgg_generate_url('view:object:hjplace', [
 			'guid' => $entity->guid,
 			'title' => elgg_get_friendly_title($entity->getDisplayName()),
 		]);
 	}
-	return $return;
+	return $event->getValue();
 }
 
-/**
- * Setup entity menus.
- */
-function entity_menu_setup($hook, $type, $return, $params) {
-	$entity = elgg_extract('entity', $params);
+function entity_menu_setup(Event $event) {
+	$entity = $event->getParam('entity');
 	if (!$entity instanceof Place) {
-		return $return;
+		return $event->getValue();
 	}
+	$return = $event->getValue();
 	if (elgg_is_admin_logged_in()) {
 		$featured = $entity->featured;
 		$on_action = 'action/places/feature?guid=' . $entity->guid;
@@ -54,18 +48,16 @@ function entity_menu_setup($hook, $type, $return, $params) {
 	return $return;
 }
 
-/**
- * Setup user interaction menus.
- */
-function interactions_menu_setup($hook, $type, $return, $params) {
-	$entity = elgg_extract('entity', $params);
+function interactions_menu_setup(Event $event) {
+	$entity = $event->getParam('entity');
 	if (!$entity instanceof Place) {
-		return $return;
+		return $event->getValue();
 	}
 	if (!elgg_is_logged_in()) {
-		return $return;
+		return $event->getValue();
 	}
 
+	$return = $event->getValue();
 	$bookmarked = (bool) check_entity_relationship(elgg_get_logged_in_user_guid(), 'bookmarked', $entity->guid);
 	$on_action = 'action/places/bookmark?guid=' . $entity->guid;
 	$off_action = 'action/places/unbookmark?guid=' . $entity->guid;
@@ -89,11 +81,9 @@ function interactions_menu_setup($hook, $type, $return, $params) {
 	return $return;
 }
 
-/**
- * Setup owner block menu.
- */
-function owner_block_menu_setup($hook, $type, $return, $params) {
-	$entity = elgg_extract('entity', $params);
+function owner_block_menu_setup(Event $event) {
+	$entity = $event->getParam('entity');
+	$return = $event->getValue();
 	if ($entity instanceof \ElggGroup && $entity->places_enable !== 'no') {
 		$return[] = ElggMenuItem::factory([
 			'name' => 'group:places',
@@ -114,18 +104,53 @@ function owner_block_menu_setup($hook, $type, $return, $params) {
 	return $return;
 }
 
-/**
- * Allow place owners to add widgets.
- */
-function widget_layout_permissions_check($hook, $type, $return, $params) {
-	$context = elgg_extract('context', $params);
-	$user = elgg_extract('user', $params);
-	$page_owner = elgg_extract('page_owner', $params);
+function entity_icon_url(Event $event) {
+	$entity = $event->getParam('entity');
+	if (!$entity instanceof Place) {
+		return $event->getValue();
+	}
+	if ($entity->icontime) {
+		return $event->getValue();
+	}
+	$size = $event->getParam('size') ?? 'medium';
+	return elgg_get_simplecache_url("hypePlaces/graphics/icon/{$size}.png");
+}
+
+function entity_icon_sizes(Event $event) {
+	$entity = $event->getParam('entity');
+	if (!$entity instanceof Place) {
+		return $event->getValue();
+	}
+	return [
+		'tiny'    => ['w' => 25,  'h' => 25,  'square' => true,  'upscale' => true],
+		'small'   => ['w' => 40,  'h' => 40,  'square' => true,  'upscale' => true],
+		'medium'  => ['w' => 100, 'h' => 100, 'square' => true,  'upscale' => true],
+		'large'   => ['w' => 200, 'h' => 200, 'square' => true,  'upscale' => true],
+		'125'     => ['w' => 125, 'h' => 125, 'square' => true,  'upscale' => true],
+		'325x200' => ['w' => 325, 'h' => 200, 'square' => false, 'upscale' => true],
+	];
+}
+
+function setup_site_search_maps(Event $event) {
+	$return = $event->getValue();
+	$return['places'] = [
+		'options' => [
+			'types'    => 'object',
+			'subtypes' => Place::SUBTYPE,
+		],
+	];
+	return $return;
+}
+
+function widget_layout_permissions_check(Event $event) {
+	$context = $event->getParam('context');
+	$user = $event->getParam('user');
+	$page_owner = $event->getParam('page_owner');
 	if (!$user instanceof \ElggEntity || !$page_owner instanceof \ElggEntity) {
-		return $return;
+		return $event->getValue();
 	}
 	if ($context == PAGEHANDLER && $user->guid == $page_owner->owner_guid) {
 		return true;
 	}
-	return $return;
+	return $event->getValue();
 }

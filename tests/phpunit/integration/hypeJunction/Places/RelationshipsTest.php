@@ -4,10 +4,6 @@ namespace hypeJunction\Places;
 
 use Elgg\IntegrationTestCase;
 
-/**
- * Test bookmarking relationships and checkin annotations behavior that the
- * actions rely on.
- */
 class RelationshipsTest extends IntegrationTestCase {
 
     public function up() {}
@@ -17,10 +13,11 @@ class RelationshipsTest extends IntegrationTestCase {
         return '';
     }
 
-    private function makePlace(int $owner_guid): Place {
+    private function makePlace(\ElggUser $user): Place {
+        _elgg_services()->session_manager->setLoggedInUser($user);
         $place = new Place();
-        $place->owner_guid = $owner_guid;
-        $place->container_guid = $owner_guid;
+        $place->owner_guid = $user->guid;
+        $place->container_guid = $user->guid;
         $place->access_id = ACCESS_PUBLIC;
         $place->title = 'Rel Place';
         $place->save();
@@ -29,7 +26,7 @@ class RelationshipsTest extends IntegrationTestCase {
 
     public function testBookmarkRelationshipCanBeAddedAndChecked(): void {
         $user = $this->createUser();
-        $place = $this->makePlace($user->guid);
+        $place = $this->makePlace($user);
 
         $this->assertFalse((bool) check_entity_relationship($user->guid, 'bookmarked', $place->guid));
 
@@ -40,11 +37,12 @@ class RelationshipsTest extends IntegrationTestCase {
         $this->assertFalse((bool) check_entity_relationship($user->guid, 'bookmarked', $place->guid));
 
         $place->delete();
+        _elgg_services()->session_manager->removeLoggedInUser();
     }
 
     public function testCheckinAnnotationIsRetrievable(): void {
         $user = $this->createUser();
-        $place = $this->makePlace($user->guid);
+        $place = $this->makePlace($user);
 
         $place->checkIn($user->guid);
 
@@ -52,11 +50,12 @@ class RelationshipsTest extends IntegrationTestCase {
         $this->assertGreaterThan(0, $count);
 
         $place->delete();
+        _elgg_services()->session_manager->removeLoggedInUser();
     }
 
     public function testFeaturedMetadataTogglesValue(): void {
         $user = $this->createUser();
-        $place = $this->makePlace($user->guid);
+        $place = $this->makePlace($user);
 
         $this->assertEmpty($place->featured);
         $place->featured = true;
@@ -64,8 +63,10 @@ class RelationshipsTest extends IntegrationTestCase {
 
         _elgg_services()->entityCache->delete($place->guid);
         $loaded = get_entity($place->guid);
+        $this->assertInstanceOf(Place::class, $loaded);
         $this->assertNotEmpty($loaded->featured);
 
         $place->delete();
+        _elgg_services()->session_manager->removeLoggedInUser();
     }
 }
