@@ -54,6 +54,7 @@ if ($entity->country_code && is_callable(['hypeJunction\\Geo\\Countries', 'getCo
 	$countries = call_user_func(['hypeJunction\\Geo\\Countries', 'getCountries'], 'iso', 'name', 'name');
 	$country = $countries[$country_iso] ?? $country;
 }
+
 $entity->country = $country;
 $entity->phone = get_input('phone');
 $entity->website = get_input('website');

@@ -9,10 +9,16 @@ class PluginRegistrationTest extends IntegrationTestCase {
     public function up() {}
     public function down() {}
 
+    /**
+     * @return string
+     */
     public function getPluginID(): string {
         return '';
     }
 
+    /**
+     * @return void
+     */
     public function testPlaceClassIsMappedForSubtype(): void {
         $class = elgg_get_entity_class('object', Place::SUBTYPE);
         if ($class === null) {
@@ -22,6 +28,9 @@ class PluginRegistrationTest extends IntegrationTestCase {
         $this->assertEquals(Place::class, $class);
     }
 
+    /**
+     * @return void
+     */
     public function testEntityLoadsAsPlaceInstance(): void {
         elgg_set_entity_class('object', Place::SUBTYPE, Place::class);
 
@@ -42,6 +51,9 @@ class PluginRegistrationTest extends IntegrationTestCase {
         _elgg_services()->session_manager->removeLoggedInUser();
     }
 
+    /**
+     * @return void
+     */
     public function testPluginConstantsAreDefined(): void {
         $this->assertEquals('hypeplaces', PLUGIN_ID);
         $this->assertEquals('places', PAGEHANDLER);

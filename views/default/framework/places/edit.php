@@ -7,7 +7,7 @@ if (is_array($sticky_values)) {
 	$vars = array_merge($vars, $sticky_values);
 }
 
-echo elgg_view_form('places/edit', array(
+echo elgg_view_form('places/edit', [
 	'enctype' => 'multipart/form-data',
 	'class' => 'places-form',
-		), $vars);
+], $vars);

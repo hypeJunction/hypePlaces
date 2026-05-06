@@ -9,10 +9,17 @@ class RelationshipsTest extends IntegrationTestCase {
     public function up() {}
     public function down() {}
 
+    /**
+     * @return string
+     */
     public function getPluginID(): string {
         return '';
     }
 
+    /**
+     * @param ElggUser $user
+     * @return Place
+     */
     private function makePlace(\ElggUser $user): Place {
         _elgg_services()->session_manager->setLoggedInUser($user);
         $place = new Place();
@@ -24,6 +31,9 @@ class RelationshipsTest extends IntegrationTestCase {
         return $place;
     }
 
+    /**
+     * @return void
+     */
     public function testBookmarkRelationshipCanBeAddedAndChecked(): void {
         $user = $this->createUser();
         $place = $this->makePlace($user);
@@ -40,6 +50,9 @@ class RelationshipsTest extends IntegrationTestCase {
         _elgg_services()->session_manager->removeLoggedInUser();
     }
 
+    /**
+     * @return void
+     */
     public function testCheckinAnnotationIsRetrievable(): void {
         $user = $this->createUser();
         $place = $this->makePlace($user);
@@ -53,6 +66,9 @@ class RelationshipsTest extends IntegrationTestCase {
         _elgg_services()->session_manager->removeLoggedInUser();
     }
 
+    /**
+     * @return void
+     */
     public function testFeaturedMetadataTogglesValue(): void {
         $user = $this->createUser();
         $place = $this->makePlace($user);

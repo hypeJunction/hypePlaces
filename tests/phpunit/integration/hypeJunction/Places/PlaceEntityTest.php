@@ -13,25 +13,40 @@ class PlaceEntityTest extends IntegrationTestCase {
     public function down() {
     }
 
+    /**
+     * @return string
+     */
     public function getPluginID(): string {
         return '';
     }
 
+    /**
+     * @return void
+     */
     public function testPlaceClassExists(): void {
         $this->assertTrue(class_exists(Place::class));
         $this->assertEquals('hjplace', Place::SUBTYPE);
     }
 
+    /**
+     * @return void
+     */
     public function testPlaceInitializesSubtype(): void {
         $place = new Place();
         $this->assertEquals('hjplace', $place->getSubtype());
     }
 
+    /**
+     * @return void
+     */
     public function testPlaceIsElggObject(): void {
         $place = new Place();
         $this->assertInstanceOf(ElggObject::class, $place);
     }
 
+    /**
+     * @return void
+     */
     public function testPlaceCanBeSaved(): void {
         $user = $this->createUser();
         _elgg_services()->session_manager->setLoggedInUser($user);
@@ -53,6 +68,9 @@ class PlaceEntityTest extends IntegrationTestCase {
         _elgg_services()->session_manager->removeLoggedInUser();
     }
 
+    /**
+     * @return void
+     */
     public function testPlacePersistsAddressMetadata(): void {
         $user = $this->createUser();
         _elgg_services()->session_manager->setLoggedInUser($user);
@@ -94,6 +112,9 @@ class PlaceEntityTest extends IntegrationTestCase {
         _elgg_services()->session_manager->removeLoggedInUser();
     }
 
+    /**
+     * @return void
+     */
     public function testGetAddressReturnsAllKeys(): void {
         $place = new Place();
         $address = $place->getAddress();
@@ -106,6 +127,9 @@ class PlaceEntityTest extends IntegrationTestCase {
         }
     }
 
+    /**
+     * @return void
+     */
     public function testGetCheckinDurationDefaultIsOneHour(): void {
         $place = new Place();
         $duration = $place->getCheckinDuration();
@@ -113,6 +137,9 @@ class PlaceEntityTest extends IntegrationTestCase {
         $this->assertGreaterThan(0, $duration);
     }
 
+    /**
+     * @return void
+     */
     public function testCheckInCreatesAnnotation(): void {
         $user = $this->createUser();
         _elgg_services()->session_manager->setLoggedInUser($user);
@@ -134,6 +161,9 @@ class PlaceEntityTest extends IntegrationTestCase {
         _elgg_services()->session_manager->removeLoggedInUser();
     }
 
+    /**
+     * @return void
+     */
     public function testCheckInWithoutUserReturnsFalseWhenNotLoggedIn(): void {
         $place = new Place();
         $place->owner_guid = 0;
@@ -143,6 +173,9 @@ class PlaceEntityTest extends IntegrationTestCase {
         $this->assertFalse($place->checkIn(0));
     }
 
+    /**
+     * @return void
+     */
     public function testOwnerCanEditPlace(): void {
         $owner = $this->createUser();
         $other = $this->createUser();

@@ -29,7 +29,7 @@ class Place extends ElggObject {
 	 * @return array
 	 */
 	public function getAddress() {
-		return array(
+		return [
 			'street_address' => $this->street_address,
 			'extended_address' => $this->extended_address,
 			'locality' => $this->locality,
@@ -37,7 +37,7 @@ class Place extends ElggObject {
 			'postal_code' => $this->postal_code,
 			'country_code' => $this->country_code,
 			'country' => $this->country,
-		);
+		];
 	}
 
 	/**
@@ -49,6 +49,7 @@ class Place extends ElggObject {
 		if (!$minutes) {
 			$minutes = self::CHECKIN_DURATION;
 		}
+
 		return $minutes * 60;
 	}
 
@@ -59,12 +60,12 @@ class Place extends ElggObject {
 	 * @param boolean $all_time Restrict to currently checked in users
 	 * @return array|false
 	 */
-	public function getCheckins($options = array(), $all_time = false) {
-		$defaults = array(
+	public function getCheckins($options = [], $all_time = false) {
+		$defaults = [
 			'guids' => $this->guid,
 			'annotation_names' => 'checkin',
 			'annotation_created_time_lower' => time() - $this->getCheckinDuration(),
-		);
+		];
 		$options = array_merge($defaults, $options);
 		if ($all_time) {
 			unset($options['annotation_create_time_lower']);
@@ -85,13 +86,13 @@ class Place extends ElggObject {
 			$user_guid = elgg_get_logged_in_user_guid();
 		}
 
-		return elgg_get_annotations(array(
+		return elgg_get_annotations([
 			'guids' => $this->guid,
 			'annotation_owner_guids' => (int) $user_guid,
 			'annotation_names' => 'checkin',
 			'annotation_created_time_lower' => time() - $this->getCheckinDuration(),
 			'count' => true,
-		));
+		]);
 	}
 
 	/**
@@ -104,6 +105,7 @@ class Place extends ElggObject {
 		if (!$user_guid) {
 			$user_guid = elgg_get_logged_in_user_guid();
 		}
+
 		if (!$user_guid) {
 			return false;
 		}
@@ -112,5 +114,4 @@ class Place extends ElggObject {
 
 		return $id;
 	}
-
 }

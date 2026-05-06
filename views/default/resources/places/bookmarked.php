@@ -8,9 +8,7 @@ if (!$user instanceof \ElggUser || !$user->canEdit()) {
 
 elgg_set_page_owner_guid($user->guid);
 
-$title = (elgg_get_logged_in_user_guid() == $user->guid)
-	? elgg_echo('places:bookmarked:mine')
-	: elgg_echo('places:bookmarked:owner', [$user->getDisplayName()]);
+$title = (elgg_get_logged_in_user_guid() == $user->guid) ? elgg_echo('places:bookmarked:mine') : elgg_echo('places:bookmarked:owner', [$user->getDisplayName()]);
 
 elgg_push_breadcrumb(elgg_echo('places'), elgg_generate_url('collection:object:hjplace:all'));
 elgg_push_breadcrumb($user->getDisplayName());

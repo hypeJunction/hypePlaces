@@ -5,6 +5,10 @@ namespace hypeJunction\Places;
 use Elgg\Event;
 use ElggMenuItem;
 
+/**
+ * @param Event $event Elgg event
+ * @return mixed
+ */
 function site_menu_setup(Event $event) {
 	$return = $event->getValue();
 	$return[] = ElggMenuItem::factory([
@@ -15,6 +19,10 @@ function site_menu_setup(Event $event) {
 	return $return;
 }
 
+/**
+ * @param Event $event Elgg event
+ * @return mixed
+ */
 function url_handler(Event $event) {
 	$entity = $event->getParam('entity');
 	if ($entity instanceof Place) {
@@ -23,14 +31,20 @@ function url_handler(Event $event) {
 			'title' => elgg_get_friendly_title($entity->getDisplayName()),
 		]);
 	}
+
 	return $event->getValue();
 }
 
+/**
+ * @param Event $event Elgg event
+ * @return mixed
+ */
 function entity_menu_setup(Event $event) {
 	$entity = $event->getParam('entity');
 	if (!$entity instanceof Place) {
 		return $event->getValue();
 	}
+
 	$return = $event->getValue();
 	if (elgg_is_admin_logged_in()) {
 		$featured = $entity->featured;
@@ -45,14 +59,20 @@ function entity_menu_setup(Event $event) {
 			'confirm' => true,
 		]);
 	}
+
 	return $return;
 }
 
+/**
+ * @param Event $event Elgg event
+ * @return mixed
+ */
 function interactions_menu_setup(Event $event) {
 	$entity = $event->getParam('entity');
 	if (!$entity instanceof Place) {
 		return $event->getValue();
 	}
+
 	if (!elgg_is_logged_in()) {
 		return $event->getValue();
 	}
@@ -81,6 +101,10 @@ function interactions_menu_setup(Event $event) {
 	return $return;
 }
 
+/**
+ * @param Event $event Elgg event
+ * @return mixed
+ */
 function owner_block_menu_setup(Event $event) {
 	$entity = $event->getParam('entity');
 	$return = $event->getValue();
@@ -101,26 +125,38 @@ function owner_block_menu_setup(Event $event) {
 			]),
 		]);
 	}
+
 	return $return;
 }
 
+/**
+ * @param Event $event Elgg event
+ * @return mixed
+ */
 function entity_icon_url(Event $event) {
 	$entity = $event->getParam('entity');
 	if (!$entity instanceof Place) {
 		return $event->getValue();
 	}
+
 	if ($entity->icontime) {
 		return $event->getValue();
 	}
+
 	$size = $event->getParam('size') ?? 'medium';
 	return elgg_get_simplecache_url("hypePlaces/graphics/icon/{$size}.png");
 }
 
+/**
+ * @param Event $event Elgg event
+ * @return mixed
+ */
 function entity_icon_sizes(Event $event) {
 	$entity = $event->getParam('entity');
 	if (!$entity instanceof Place) {
 		return $event->getValue();
 	}
+
 	return [
 		'tiny'    => ['w' => 25,  'h' => 25,  'square' => true,  'upscale' => true],
 		'small'   => ['w' => 40,  'h' => 40,  'square' => true,  'upscale' => true],
@@ -131,6 +167,10 @@ function entity_icon_sizes(Event $event) {
 	];
 }
 
+/**
+ * @param Event $event Elgg event
+ * @return mixed
+ */
 function setup_site_search_maps(Event $event) {
 	$return = $event->getValue();
 	$return['places'] = [
@@ -142,6 +182,10 @@ function setup_site_search_maps(Event $event) {
 	return $return;
 }
 
+/**
+ * @param Event $event Elgg event
+ * @return mixed
+ */
 function widget_layout_permissions_check(Event $event) {
 	$context = $event->getParam('context');
 	$user = $event->getParam('user');
@@ -149,8 +193,10 @@ function widget_layout_permissions_check(Event $event) {
 	if (!$user instanceof \ElggEntity || !$page_owner instanceof \ElggEntity) {
 		return $event->getValue();
 	}
+
 	if ($context == PAGEHANDLER && $user->guid == $page_owner->owner_guid) {
 		return true;
 	}
+
 	return $event->getValue();
 }

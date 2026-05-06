@@ -4,7 +4,8 @@ namespace hypeJunction\Places;
 
 $entity = elgg_extract('entity', $vars);
 
-$requested_size = $size = elgg_extract('size', $vars);
+$requested_size = elgg_extract('size', $vars);
+$size = $requested_size;
 
 $places_config = get_icon_sizes($entity);
 
@@ -24,23 +25,22 @@ if (isset($vars['href'])) {
 	$url = $vars['href'];
 }
 
-$img = elgg_view('output/img', array(
+$img = elgg_view('output/img', [
 	'src' => $entity->getIconURL($vars['size']),
 	'class' => $class,
 	'width' => $requested_w,
 	'height' => $requested_h,
-		));
+]);
 
 
 if ($url) {
-
-	$params = array(
+	$params = [
 		'href' => $url,
 		'text' => $img,
-		'title' => $title . ": " . elgg_strip_tags($entity->description),
+		'title' => $title . ': ' . elgg_strip_tags($entity->description),
 		'is_trusted' => true,
 		'data-guid' => $entity->guid,
-	);
+	];
 
 	if ($class) {
 		$params['class'] = $class;

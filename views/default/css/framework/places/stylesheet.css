@@ -731,68 +731,68 @@ body.places-state-loading:before {
 
 @media only screen and (min-width: 1280px) {
   .places-gallery {
-    display: block;
-    padding: 0;
-    margin: 0 -5px;
-    *zoom: 1;
+	display: block;
+	padding: 0;
+	margin: 0 -5px;
+	*zoom: 1;
   }
   .places-gallery:before, .places-gallery:after {
-    content: " ";
-    display: table;
+	content: " ";
+	display: table;
   }
   .places-gallery:after {
-    clear: both;
+	clear: both;
   }
   .places-gallery > li {
-    display: block;
-    height: auto;
-    float: left;
-    padding: 0 5px 10px;
+	display: block;
+	height: auto;
+	float: left;
+	padding: 0 5px 10px;
   }
   .places-gallery > li {
-    width: 50%;
-    margin: 0;
-    padding: 0 5px 10px;
-    list-style: none;
+	width: 50%;
+	margin: 0;
+	padding: 0 5px 10px;
+	list-style: none;
   }
   .places-gallery > li:nth-of-type(n) {
-    clear: none;
+	clear: none;
   }
   .places-gallery > li:nth-of-type(2n+1) {
-    clear: both;
+	clear: both;
   }
 }
 @media only screen and (min-width: 1440px) {
   .places-gallery {
-    display: block;
-    padding: 0;
-    margin: 0 -5px;
-    *zoom: 1;
+	display: block;
+	padding: 0;
+	margin: 0 -5px;
+	*zoom: 1;
   }
   .places-gallery:before, .places-gallery:after {
-    content: " ";
-    display: table;
+	content: " ";
+	display: table;
   }
   .places-gallery:after {
-    clear: both;
+	clear: both;
   }
   .places-gallery > li {
-    display: block;
-    height: auto;
-    float: left;
-    padding: 0 5px 10px;
+	display: block;
+	height: auto;
+	float: left;
+	padding: 0 5px 10px;
   }
   .places-gallery > li {
-    width: 33.33333%;
-    margin: 0;
-    padding: 0 5px 10px;
-    list-style: none;
+	width: 33.33333%;
+	margin: 0;
+	padding: 0 5px 10px;
+	list-style: none;
   }
   .places-gallery > li:nth-of-type(n) {
-    clear: none;
+	clear: none;
   }
   .places-gallery > li:nth-of-type(3n+1) {
-    clear: both;
+	clear: both;
   }
 }
 .places-gallery > li {

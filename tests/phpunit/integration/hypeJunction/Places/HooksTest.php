@@ -11,14 +11,28 @@ class HooksTest extends IntegrationTestCase {
     public function up() {}
     public function down() {}
 
+    /**
+     * @return string
+     */
     public function getPluginID(): string {
         return '';
     }
 
+    /**
+     * @param string $name
+     * @param string $type
+     * @param mixed $value
+     * @param array $params
+     * @return Event
+     */
     private function makeEvent(string $name, string $type, $value, array $params = []): Event {
         return new Event(elgg(), $name, $type, $value, $params);
     }
 
+    /**
+     * @param ElggUser $user
+     * @return Place
+     */
     private function makePlace(\ElggUser $user): Place {
         _elgg_services()->session_manager->setLoggedInUser($user);
         $place = new Place();
@@ -30,6 +44,9 @@ class HooksTest extends IntegrationTestCase {
         return $place;
     }
 
+    /**
+     * @return void
+     */
     public function testUrlHandlerReturnsPlaceUrl(): void {
         $user = $this->createUser();
         $place = $this->makePlace($user);
@@ -43,6 +60,9 @@ class HooksTest extends IntegrationTestCase {
         _elgg_services()->session_manager->removeLoggedInUser();
     }
 
+    /**
+     * @return void
+     */
     public function testUrlHandlerPassesThroughForNonPlace(): void {
         $user = $this->createUser();
         _elgg_services()->session_manager->setLoggedInUser($user);
@@ -62,6 +82,9 @@ class HooksTest extends IntegrationTestCase {
         _elgg_services()->session_manager->removeLoggedInUser();
     }
 
+    /**
+     * @return void
+     */
     public function testEntityIconUrlReturnsDefaultWhenNoIcontime(): void {
         $user = $this->createUser();
         $place = $this->makePlace($user);
@@ -77,6 +100,9 @@ class HooksTest extends IntegrationTestCase {
         _elgg_services()->session_manager->removeLoggedInUser();
     }
 
+    /**
+     * @return void
+     */
     public function testEntityIconSizesReturnsConfigForPlace(): void {
         $user = $this->createUser();
         $place = $this->makePlace($user);
@@ -93,6 +119,9 @@ class HooksTest extends IntegrationTestCase {
         _elgg_services()->session_manager->removeLoggedInUser();
     }
 
+    /**
+     * @return void
+     */
     public function testEntityIconSizesPassesThroughForNonPlace(): void {
         $existing = ['topbar' => ['w' => 16, 'h' => 16]];
         $event = $this->makeEvent('entity:icon:sizes', 'object', $existing, [
@@ -102,6 +131,9 @@ class HooksTest extends IntegrationTestCase {
         $this->assertEquals($existing, $result);
     }
 
+    /**
+     * @return void
+     */
     public function testSetupSiteSearchMapsRegistersPlacesMap(): void {
         $event = $this->makeEvent('search:site', 'maps', [], []);
         $result = setup_site_search_maps($event);
@@ -111,6 +143,9 @@ class HooksTest extends IntegrationTestCase {
         $this->assertEquals(Place::SUBTYPE, $result['places']['options']['subtypes']);
     }
 
+    /**
+     * @return void
+     */
     public function testEntityMenuSetupIgnoresNonPlace(): void {
         $event = $this->makeEvent('register', 'menu:entity', [], [
             'entity' => elgg_get_site_entity(),
@@ -119,6 +154,9 @@ class HooksTest extends IntegrationTestCase {
         $this->assertEquals([], $result);
     }
 
+    /**
+     * @return void
+     */
     public function testWidgetLayoutPermissionsCheckPassesThrough(): void {
         $event = $this->makeEvent('permissions_check', 'widget_layout', false, []);
         $result = widget_layout_permissions_check($event);

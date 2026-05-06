@@ -19,25 +19,25 @@ $entity = elgg_extract('entity', $vars);
 
 	<div class="places-profile-map">
 		<?php
-		echo elgg_view('framework/places/staticmap', array(
+		echo elgg_view('framework/places/staticmap', [
 			'entity' => $entity,
 			'width' => '800x200',
 			'scale' => 2,
-		));
+		]);
 		?>
 	</div>
 	<div class="places-profile-details">
 		<?php
-		echo elgg_view_entity($entity, array(
+		echo elgg_view_entity($entity, [
 			'full_view' => false,
-		));
+		]);
 		?>
 	</div>
 </div>
 
 <?php
-echo elgg_view_layout('widgets', array(
+echo elgg_view_layout('widgets', [
 	'num_columns' => 2,
 	'exact_match' => true,
-));
+]);
 
