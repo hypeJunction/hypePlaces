@@ -10,12 +10,13 @@ if (!$entity instanceof Place) {
 }
 
 $user_guid = elgg_get_logged_in_user_guid();
+$user = elgg_get_logged_in_user();
 
-if (check_entity_relationship($user_guid, 'bookmarked', $guid)) {
+if ($user->hasRelationship($guid, 'bookmarked')) {
 	return elgg_error_response(elgg_echo('places:bookmark:create:error'));
 }
 
-add_entity_relationship($user_guid, 'bookmarked', $guid);
+$user->addRelationship($guid, 'bookmarked');
 elgg_create_river_item([
 	'view' => 'river/object/hjplace/bookmark',
 	'action_type' => 'stream:places:bookmark',

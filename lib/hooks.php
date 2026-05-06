@@ -58,7 +58,7 @@ function interactions_menu_setup(Event $event) {
 	}
 
 	$return = $event->getValue();
-	$bookmarked = (bool) check_entity_relationship(elgg_get_logged_in_user_guid(), 'bookmarked', $entity->guid);
+	$bookmarked = elgg_get_logged_in_user()->hasRelationship($entity->guid, 'bookmarked');
 	$on_action = 'action/places/bookmark?guid=' . $entity->guid;
 	$off_action = 'action/places/unbookmark?guid=' . $entity->guid;
 	$return[] = ElggMenuItem::factory([

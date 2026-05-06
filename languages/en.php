@@ -1,8 +1,6 @@
 <?php
 
-namespace hypeJunction\Places;
-
-$english = array(
+return [
 	/**
 	 * Core
 	 */
@@ -106,6 +104,4 @@ $english = array(
 	'river:create:object:hjplace' => '%s added a new place %s',
 	'river:stream:places:bookmark:object:default' => '%s starred %s',
 	'river:stream:places:checkin:object:default' => '%s checked in at %s',
-);
-
-add_translation('en', $english);
+];

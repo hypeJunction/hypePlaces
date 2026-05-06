@@ -10,12 +10,13 @@ if (!$entity instanceof Place) {
 }
 
 $user_guid = elgg_get_logged_in_user_guid();
+$user = elgg_get_logged_in_user();
 
-if (!check_entity_relationship($user_guid, 'bookmarked', $guid)) {
+if (!$user->hasRelationship($guid, 'bookmarked')) {
 	return elgg_error_response(elgg_echo('places:bookmark:remove:error'));
 }
 
-remove_entity_relationship($user_guid, 'bookmarked', $guid);
+$user->removeRelationship($guid, 'bookmarked');
 elgg_delete_river([
 	'action_type' => 'stream:places:bookmark',
 	'subject_guid' => $user_guid,

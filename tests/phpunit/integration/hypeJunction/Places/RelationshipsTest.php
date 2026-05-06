@@ -28,13 +28,13 @@ class RelationshipsTest extends IntegrationTestCase {
         $user = $this->createUser();
         $place = $this->makePlace($user);
 
-        $this->assertFalse((bool) check_entity_relationship($user->guid, 'bookmarked', $place->guid));
+        $this->assertFalse($user->hasRelationship($place->guid, 'bookmarked'));
 
-        add_entity_relationship($user->guid, 'bookmarked', $place->guid);
-        $this->assertTrue((bool) check_entity_relationship($user->guid, 'bookmarked', $place->guid));
+        $user->addRelationship($place->guid, 'bookmarked');
+        $this->assertTrue($user->hasRelationship($place->guid, 'bookmarked'));
 
-        remove_entity_relationship($user->guid, 'bookmarked', $place->guid);
-        $this->assertFalse((bool) check_entity_relationship($user->guid, 'bookmarked', $place->guid));
+        $user->removeRelationship($place->guid, 'bookmarked');
+        $this->assertFalse($user->hasRelationship($place->guid, 'bookmarked'));
 
         $place->delete();
         _elgg_services()->session_manager->removeLoggedInUser();
