@@ -1,5 +1,35 @@
 # Changelog
 
+## 5.0.0 — Elgg 5.x compatibility
+
+Migration from Elgg 4.x to 5.x.
+
+### Breaking
+
+- **`PLUGIN_ID` constant lowercased to `'hypeplaces'`** (was `'hypePlaces'`).
+  Any code calling `elgg_get_plugin_setting(..., 'hypePlaces')` must update
+  to lowercase.
+- **`elgg-plugin.php` `hooks` key renamed to `events`**. Hook handlers now
+  receive a single `\Elgg\Event $event` argument (no more 4-param signature).
+- **PHP minimum raised to 8.2** (Elgg 5.x requirement).
+- **`elgg_trigger_plugin_hook()` replaced by `elgg_trigger_event_results()`**
+  in `lib/functions.php::get_icon_sizes()`.
+
+### Changed
+
+- All hook callback functions in `lib/hooks.php` converted to use
+  `\Elgg\Event $event` single-argument signature; `$params` → `$event->getParam()`,
+  `$return` → `$event->getValue()`.
+- Tests updated: `_elgg_services()->session_manager` replaces
+  `elgg_get_session()`, `\Elgg\Event` objects used for direct handler tests.
+- Docker stack upgraded: PHP 8.2-apache, MySQL 8.0, Playwright 1.59.1.
+- Playwright `baseURL` moved into `use:{}` block (required for Playwright ≥1.50).
+
+### Composer
+
+- `php >= 8.2`
+- `elgg/elgg ^5.0`
+
 ## 4.0.0 — Elgg 4.x compatibility
 
 Migration from Elgg 3.x to 4.x.

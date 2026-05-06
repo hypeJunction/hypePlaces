@@ -1,4 +1,4 @@
-# hypePlaces — Architecture (Elgg 4.x)
+# hypePlaces — Architecture (Elgg 5.x)
 
 ## Summary
 
@@ -11,8 +11,8 @@ per-owner, per-group, or sitewide.
 
 - ID / dir name: `hypeplaces` (lowercase, matches `composer.json` name)
 - Composer name: `hypejunction/hypeplaces`
-- PHP: `>=7.4`
-- Elgg: `^4.0`
+- PHP: `>=8.2`
+- Elgg: `^5.0`
 - Hard dependencies: `hypejunction/hypelists` (declarative; framework lib)
 - Soft / optional integrations: hypeMaps, hypeGeo (detected at runtime
   via `is_callable`), hypeFilestore (legacy reference removed in 4.x —
@@ -22,8 +22,8 @@ per-owner, per-group, or sitewide.
 
 ```
 hypePlaces/
-├── elgg-plugin.php             # plugin metadata, entities, actions, routes, hooks, widgets, group_tools
-├── composer.json               # 4.x metadata (lowercase name, php 7.4, elgg ^4.0)
+├── elgg-plugin.php             # plugin metadata, entities, actions, routes, events, widgets, group_tools
+├── composer.json               # 5.x metadata (lowercase name, php 8.2, elgg ^5.0)
 ├── classes/hypeJunction/Places/
 │   ├── Bootstrap.php           # PluginBootstrap — loads lib/ files in load()
 │   └── Place.php               # ElggObject subclass, subtype 'hjplace'
