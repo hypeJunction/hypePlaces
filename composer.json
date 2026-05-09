@@ -5,7 +5,11 @@
 	"description": "Directory of Businesses, Places of Interests and Private Locations",
 	"homepage": "http://hypejunction.com",
 	"keywords": [
-		"elgg", "plugin", "places", "maps", "directory"
+		"elgg",
+		"plugin",
+		"places",
+		"maps",
+		"directory"
 	],
 	"license": "GPL-2.0",
 	"authors": [
@@ -17,7 +21,7 @@
 	"extra": {
 		"installer-name": "hypePlaces"
 	},
-		"config": {
+	"config": {
 		"vendor-dir": "/vendor/",
 		"allow-plugins": {
 			"composer/installers": true
@@ -25,7 +29,7 @@
 	},
 	"require": {
 		"php": ">=5.3.3",
-		"composer/installers": ">=1.0.8",
+		"composer/installers": "^1.0 || ^2.0",
 		"hypejunction/hypelists": ">=3.2"
 	},
 	"autoload": {
