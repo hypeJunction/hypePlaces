@@ -31,5 +31,6 @@ class Bootstrap extends DefaultPluginBootstrap {
 	public function init() {
 		// 'specialties' is exposed as a tag metadata name via the
 		// 'tag_names' config in 4.x — see elgg_set_config or skip if unused.
+		elgg_register_event_handler('seeds', 'database', [Seeder::class, 'addSeed']);
 	}
 }
