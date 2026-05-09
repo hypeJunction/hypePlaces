@@ -1,6 +1,8 @@
 hypePlaces
 ==========
 
+![Elgg 5.0](https://img.shields.io/badge/Elgg-5.0-orange.svg?style=flat-square)
+
 Directory of Places and Points of Interest for Elgg
 
 ## Features
@@ -9,7 +11,6 @@ Directory of Places and Points of Interest for Elgg
 * Place profiles extendable by custom widgets
 * Check-ins and Starred places
 * Integration with hypeMaps
-
 
 ## Screenshots
 

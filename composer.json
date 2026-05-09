@@ -2,7 +2,7 @@
 	"name": "hypejunction/hypeplaces",
 	"type": "elgg-plugin",
 	"description": "Directory of Businesses, Places of Interests and Private Locations",
-	"homepage": "http://hypejunction.com",
+	"homepage": "https://github.com/hypeJunction/hypeplaces",
 	"keywords": [
 		"elgg",
 		"plugin",
@@ -13,8 +13,8 @@
 	"license": "GPL-2.0-or-later",
 	"authors": [
 		{
-			"name": "Ismayil Khayredinov",
-			"email": "ismayil.khayredinov@gmail.com"
+			"name": "hypeJunction",
+			"homepage": "https://github.com/hypeJunction"
 		}
 	],
 	"extra": {
