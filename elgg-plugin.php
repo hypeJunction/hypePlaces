@@ -3,7 +3,7 @@
 return [
 	'plugin' => [
 		'name' => 'hypePlaces',
-		'version' => '6.0.0',
+		'version' => '7.0.0',
 		'description' => 'Directory of Businesses, Places of Interests and Private Locations',
 		'category' => ['content', 'directory'],
 		'author' => 'hypeJunction',
@@ -24,6 +24,7 @@ return [
 				'commentable' => true,
 				'searchable' => true,
 				'likable' => true,
+				'river_emittable' => true,
 			],
 		],
 	],

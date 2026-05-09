@@ -1,5 +1,21 @@
 # Changelog
 
+## 7.0.0 — Elgg 7.x compatibility
+
+Migration from Elgg 6.x to 7.x.
+
+### Breaking
+
+- **PHP minimum raised to 8.3** (Elgg 7.x requirement).
+- **`river_emittable` capability required** — river activity now gated by this capability; registered in `elgg-plugin.php`.
+
+### Migration (6.x → 7.x)
+
+- `elgg-plugin.php`: added `'river_emittable' => true` to `hjplace` entity capabilities.
+- Bumped `elgg/elgg: ^7.0`, `php: >=8.3`.
+
+---
+
 ## 6.0.0 — Elgg 6.x compatibility
 
 Migration from Elgg 5.x to 6.x.
