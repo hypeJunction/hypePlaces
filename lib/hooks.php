@@ -139,7 +139,7 @@ function entity_icon_url(Event $event) {
 		return $event->getValue();
 	}
 
-	if ($entity->icontime) {
+	if ($entity->hasIcon()) {
 		return $event->getValue();
 	}
 

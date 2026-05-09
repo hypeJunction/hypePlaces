@@ -3,7 +3,7 @@
 return [
 	'plugin' => [
 		'name' => 'hypePlaces',
-		'version' => '5.0.0',
+		'version' => '6.0.0',
 		'description' => 'Directory of Businesses, Places of Interests and Private Locations',
 		'category' => ['content', 'directory'],
 		'author' => 'hypeJunction',

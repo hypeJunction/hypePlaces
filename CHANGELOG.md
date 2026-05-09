@@ -1,5 +1,21 @@
 # Changelog
 
+## 6.0.0 — Elgg 6.x compatibility
+
+Migration from Elgg 5.x to 6.x.
+
+### Breaking
+
+- **PHP minimum raised to 8.2** (Elgg 6.x requirement).
+- **`icontime` metadata removed** — replaced with `$entity->hasIcon()` checks.
+  Places plugin entity icon fallback now uses `hasIcon()` instead of checking
+  the `icontime` metadata field.
+
+### Changed
+
+- Updated `composer.json` to require `elgg/elgg ^6.0`.
+- Replaced `$entity->icontime` checks with `$entity->hasIcon()`.
+
 ## 5.0.0 — Elgg 5.x compatibility
 
 Migration from Elgg 4.x to 5.x.

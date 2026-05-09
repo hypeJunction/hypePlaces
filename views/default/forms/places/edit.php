@@ -27,7 +27,7 @@ $required = elgg_format_attributes([
 		<?php
 		echo elgg_view('input/file', [
 			'name' => 'icon',
-			'value' => ($entity->icontime),
+			'value' => ($entity instanceof Place && $entity->hasIcon()) ? 1 : null,
 		]);
 		?>
 	</div>
