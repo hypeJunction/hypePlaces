@@ -6,9 +6,9 @@ return [
 		'version' => '5.0.0',
 		'description' => 'Directory of Businesses, Places of Interests and Private Locations',
 		'category' => ['content', 'directory'],
-		'author' => 'Ismayil Khayredinov (ismayil.khayredinov@gmail.com)',
-		'website' => 'http://hypeJunction.com',
-		'copyright' => '2011-2018 (c) Ismayil Khayredinov',
+		'author' => 'hypeJunction',
+		'website' => 'https://github.com/hypeJunction/hypeplaces',
+		'copyright' => '(c) hypeJunction',
 		'license' => 'GPL-2.0-or-later',
 	],
 
