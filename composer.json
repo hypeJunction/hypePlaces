@@ -37,6 +37,5 @@
         "psr-4": {
             "hypeJunction\\Places\\": "classes/hypeJunction/Places/"
         }
-    },
-    "version": "7.0.0"
+    }
 }
