@@ -1,4 +1,6 @@
 hypePlaces
+
+![Elgg 3.x](https://img.shields.io/badge/Elgg-3.x-orange.svg?style=flat-square)
 ==========
 
 Directory of Places and Points of Interest for Elgg
