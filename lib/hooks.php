@@ -7,7 +7,10 @@ use ElggMenuItem;
 /**
  * Site menu handler — adds the "Places" menu item to the site navigation.
  */
-function site_menu_setup($hook, $type, $return, $params) {
+function site_menu_setup(\Elgg\Hook $hook) {
+	$params = $hook->getParams();
+	$return = $hook->getValue();
+
 	$return[] = ElggMenuItem::factory([
 		'name' => 'places',
 		'text' => elgg_echo('places'),
@@ -19,7 +22,10 @@ function site_menu_setup($hook, $type, $return, $params) {
 /**
  * Give entities their own URLs.
  */
-function url_handler($hook, $type, $return, $params) {
+function url_handler(\Elgg\Hook $hook) {
+	$params = $hook->getParams();
+	$return = $hook->getValue();
+
 	$entity = elgg_extract('entity', $params);
 	if ($entity instanceof Place) {
 		return elgg_generate_url('view:object:hjplace', [
@@ -33,7 +39,10 @@ function url_handler($hook, $type, $return, $params) {
 /**
  * Setup entity menus.
  */
-function entity_menu_setup($hook, $type, $return, $params) {
+function entity_menu_setup(\Elgg\Hook $hook) {
+	$params = $hook->getParams();
+	$return = $hook->getValue();
+
 	$entity = elgg_extract('entity', $params);
 	if (!$entity instanceof Place) {
 		return $return;
@@ -57,7 +66,10 @@ function entity_menu_setup($hook, $type, $return, $params) {
 /**
  * Setup user interaction menus.
  */
-function interactions_menu_setup($hook, $type, $return, $params) {
+function interactions_menu_setup(\Elgg\Hook $hook) {
+	$params = $hook->getParams();
+	$return = $hook->getValue();
+
 	$entity = elgg_extract('entity', $params);
 	if (!$entity instanceof Place) {
 		return $return;
@@ -92,7 +104,10 @@ function interactions_menu_setup($hook, $type, $return, $params) {
 /**
  * Setup owner block menu.
  */
-function owner_block_menu_setup($hook, $type, $return, $params) {
+function owner_block_menu_setup(\Elgg\Hook $hook) {
+	$params = $hook->getParams();
+	$return = $hook->getValue();
+
 	$entity = elgg_extract('entity', $params);
 	if ($entity instanceof \ElggGroup && $entity->places_enable !== 'no') {
 		$return[] = ElggMenuItem::factory([
@@ -117,7 +132,10 @@ function owner_block_menu_setup($hook, $type, $return, $params) {
 /**
  * Allow place owners to add widgets.
  */
-function widget_layout_permissions_check($hook, $type, $return, $params) {
+function widget_layout_permissions_check(\Elgg\Hook $hook) {
+	$params = $hook->getParams();
+	$return = $hook->getValue();
+
 	$context = elgg_extract('context', $params);
 	$user = elgg_extract('user', $params);
 	$page_owner = elgg_extract('page_owner', $params);
