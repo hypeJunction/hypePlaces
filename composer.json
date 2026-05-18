@@ -1,41 +1,44 @@
 {
-	"name": "hypejunction/hypeplaces",
-	"type": "elgg-plugin",
-	"description": "Directory of Businesses, Places of Interests and Private Locations",
-	"homepage": "http://hypejunction.com",
-	"keywords": [
-		"elgg",
-		"plugin",
-		"places",
-		"maps",
-		"directory"
-	],
-	"license": "GPL-2.0-or-later",
-	"authors": [
-		{
-			"name": "Ismayil Khayredinov",
-			"email": "ismayil.khayredinov@gmail.com"
-		}
-	],
-	"extra": {
-		"elgg-plugin": {
-			"id": "hypeplaces"
-		}
-	},
-	"config": {
-		"allow-plugins": {
-			"composer/installers": true
-		}
-	},
-	"require": {
-		"php": ">=7.4",
-		"elgg/elgg": "^4.0",
-		"composer/installers": "^2.0",
-		"hypejunction/hypelists": "*"
-	},
-	"autoload": {
-		"psr-4": {
-			"hypeJunction\\Places\\": "classes/hypeJunction/Places/"
-		}
-	}
+    "name": "hypejunction/hypeplaces",
+    "type": "elgg-plugin",
+    "description": "Directory of Businesses, Places of Interests and Private Locations",
+    "homepage": "http://hypejunction.com",
+    "keywords": [
+        "elgg",
+        "plugin",
+        "places",
+        "maps",
+        "directory"
+    ],
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Ismayil Khayredinov",
+            "email": "ismayil.khayredinov@gmail.com"
+        }
+    ],
+    "extra": {
+        "elgg-plugin": {
+            "id": "hypeplaces"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    },
+    "require": {
+        "php": ">=7.4",
+        "elgg/elgg": "^4.0",
+        "composer/installers": "^2.0",
+        "hypejunction/hypelists": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "hypeJunction\\Places\\": "classes/hypeJunction/Places/"
+        },
+        "files": [
+            "lib/functions.php"
+        ]
+    }
 }
