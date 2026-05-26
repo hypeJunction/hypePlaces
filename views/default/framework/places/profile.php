@@ -2,7 +2,7 @@
 
 namespace hypeJunction\Places;
 
-$entity = elgg_extract('entity', $vars);
+$entity = \elgg_extract('entity', $vars);
 ?>
 <div class="places-profile-header">
 	<?php
@@ -10,7 +10,7 @@ $entity = elgg_extract('entity', $vars);
 		?>
 		<div class="places-featured-ribbon">
 			<div class="banner">
-				<div class="text"><?php echo elgg_echo('places:featured') ?></div>
+				<div class="text"><?php echo \elgg_echo('places:featured') ?></div>
 			</div>
 		</div>
 		<?php
@@ -19,7 +19,7 @@ $entity = elgg_extract('entity', $vars);
 
 	<div class="places-profile-map">
 		<?php
-		echo elgg_view('framework/places/staticmap', [
+		echo \elgg_view('framework/places/staticmap', [
 			'entity' => $entity,
 			'width' => '800x200',
 			'scale' => 2,
@@ -28,7 +28,7 @@ $entity = elgg_extract('entity', $vars);
 	</div>
 	<div class="places-profile-details">
 		<?php
-		echo elgg_view_entity($entity, [
+		echo \elgg_view_entity($entity, [
 			'full_view' => false,
 		]);
 		?>
@@ -36,7 +36,7 @@ $entity = elgg_extract('entity', $vars);
 </div>
 
 <?php
-echo elgg_view_layout('widgets', [
+echo \elgg_view_layout('widgets', [
 	'num_columns' => 2,
 	'exact_match' => true,
 ]);

@@ -6,18 +6,18 @@ $guid = (int) get_input('guid');
 $entity = get_entity($guid);
 
 if (!$entity instanceof Place) {
-	return elgg_error_response(elgg_echo('places:error:not_found'));
+	return \elgg_error_response(\elgg_echo('places:error:not_found'));
 }
 
-$user_guid = elgg_get_logged_in_user_guid();
-$user = elgg_get_logged_in_user();
+$user_guid = \elgg_get_logged_in_user_guid();
+$user = \elgg_get_logged_in_user();
 
 if ($user->hasRelationship($guid, 'bookmarked')) {
-	return elgg_error_response(elgg_echo('places:bookmark:create:error'));
+	return \elgg_error_response(\elgg_echo('places:bookmark:create:error'));
 }
 
 $user->addRelationship($guid, 'bookmarked');
-elgg_create_river_item([
+\elgg_create_river_item([
 	'view' => 'river/object/hjplace/bookmark',
 	'action_type' => 'stream:places:bookmark',
 	'subject_guid' => $user_guid,
@@ -25,4 +25,4 @@ elgg_create_river_item([
 	'access_id' => $entity->access_id,
 ]);
 
-return elgg_ok_response('', elgg_echo('places:bookmark:create:success'), REFERRER);
+return \elgg_ok_response('', \elgg_echo('places:bookmark:create:success'), REFERRER);

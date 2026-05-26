@@ -12,8 +12,8 @@ const PAGEHANDLER = 'places';
  * @return array
  */
 function get_icon_sizes($entity) {
-	$config = elgg_get_config('icon_sizes');
-	$config = elgg_trigger_event_results('entity:icon:sizes', 'object', [
+	$config = \elgg_get_config('icon_sizes');
+	$config = \elgg_trigger_event_results('entity:icon:sizes', 'object', [
 		'entity' => $entity,
 	], $config);
 	return $config;

@@ -21,7 +21,7 @@ class RelationshipsTest extends IntegrationTestCase {
      * @return Place
      */
     private function makePlace(\ElggUser $user): Place {
-        _elgg_services()->session_manager->setLoggedInUser($user);
+        \_elgg_services()->session_manager->setLoggedInUser($user);
         $place = new Place();
         $place->owner_guid = $user->guid;
         $place->container_guid = $user->guid;
@@ -47,7 +47,7 @@ class RelationshipsTest extends IntegrationTestCase {
         $this->assertFalse($user->hasRelationship($place->guid, 'bookmarked'));
 
         $place->delete();
-        _elgg_services()->session_manager->removeLoggedInUser();
+        \_elgg_services()->session_manager->removeLoggedInUser();
     }
 
     /**
@@ -63,7 +63,7 @@ class RelationshipsTest extends IntegrationTestCase {
         $this->assertGreaterThan(0, $count);
 
         $place->delete();
-        _elgg_services()->session_manager->removeLoggedInUser();
+        \_elgg_services()->session_manager->removeLoggedInUser();
     }
 
     /**
@@ -77,12 +77,12 @@ class RelationshipsTest extends IntegrationTestCase {
         $place->featured = true;
         $place->save();
 
-        _elgg_services()->entityCache->delete($place->guid);
+        \_elgg_services()->entityCache->delete($place->guid);
         $loaded = get_entity($place->guid);
         $this->assertInstanceOf(Place::class, $loaded);
         $this->assertNotEmpty($loaded->featured);
 
         $place->delete();
-        _elgg_services()->session_manager->removeLoggedInUser();
+        \_elgg_services()->session_manager->removeLoggedInUser();
     }
 }

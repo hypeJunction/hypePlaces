@@ -20,10 +20,10 @@ class PluginRegistrationTest extends IntegrationTestCase {
      * @return void
      */
     public function testPlaceClassIsMappedForSubtype(): void {
-        $class = elgg_get_entity_class('object', Place::SUBTYPE);
+        $class = \elgg_get_entity_class('object', Place::SUBTYPE);
         if ($class === null) {
-            elgg_set_entity_class('object', Place::SUBTYPE, Place::class);
-            $class = elgg_get_entity_class('object', Place::SUBTYPE);
+            \elgg_set_entity_class('object', Place::SUBTYPE, Place::class);
+            $class = \elgg_get_entity_class('object', Place::SUBTYPE);
         }
         $this->assertEquals(Place::class, $class);
     }
@@ -32,10 +32,10 @@ class PluginRegistrationTest extends IntegrationTestCase {
      * @return void
      */
     public function testEntityLoadsAsPlaceInstance(): void {
-        elgg_set_entity_class('object', Place::SUBTYPE, Place::class);
+        \elgg_set_entity_class('object', Place::SUBTYPE, Place::class);
 
         $user = $this->createUser();
-        _elgg_services()->session_manager->setLoggedInUser($user);
+        \_elgg_services()->session_manager->setLoggedInUser($user);
         $place = new Place();
         $place->owner_guid = $user->guid;
         $place->container_guid = $user->guid;
@@ -43,12 +43,12 @@ class PluginRegistrationTest extends IntegrationTestCase {
         $place->title = 'Class Mapping Test';
         $this->assertTrue($place->save() !== false);
 
-        _elgg_services()->entityCache->delete($place->guid);
+        \_elgg_services()->entityCache->delete($place->guid);
         $loaded = get_entity($place->guid);
         $this->assertInstanceOf(Place::class, $loaded);
 
         $place->delete();
-        _elgg_services()->session_manager->removeLoggedInUser();
+        \_elgg_services()->session_manager->removeLoggedInUser();
     }
 
     /**

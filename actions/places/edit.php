@@ -2,7 +2,7 @@
 
 namespace hypeJunction\Places;
 
-elgg_make_sticky_form('places/edit');
+\elgg_make_sticky_form('places/edit');
 
 $guid = (int) get_input('guid');
 $container_guid = (int) get_input('container_guid');
@@ -14,16 +14,16 @@ $specialties = get_input('specialties');
 $markertype = get_input('markertype', 'default');
 
 $address = (array) get_input('address', []);
-$street_address = elgg_extract('street_address', $address);
-$extended_address = elgg_extract('extended_address', $address);
-$locality = elgg_extract('locality', $address);
-$region = elgg_extract('region', $address);
-$postal_code = elgg_extract('postal_code', $address);
-$country_iso = elgg_extract('country_code', $address);
-$country = elgg_extract('country', $address);
+$street_address = \elgg_extract('street_address', $address);
+$extended_address = \elgg_extract('extended_address', $address);
+$locality = \elgg_extract('locality', $address);
+$region = \elgg_extract('region', $address);
+$postal_code = \elgg_extract('postal_code', $address);
+$country_iso = \elgg_extract('country_code', $address);
+$country = \elgg_extract('country', $address);
 
 if (!$title || !$street_address || !$locality || !$postal_code || (!$country_iso && !$country)) {
-	return elgg_error_response(elgg_echo('places:place:edit:error:required_field_empty'));
+	return \elgg_error_response(\elgg_echo('places:place:edit:error:required_field_empty'));
 }
 
 $entity = $guid ? get_entity($guid) : null;
@@ -41,8 +41,8 @@ if (!$entity instanceof Place) {
 $entity->access_id = ($access_id === '' && $container instanceof \ElggEntity) ? $container->access_id : (int) $access_id;
 $entity->title = $title;
 $entity->description = $description;
-$entity->tags = elgg_string_to_array((string) $tags);
-$entity->specialties = elgg_string_to_array((string) $specialties);
+$entity->tags = \elgg_string_to_array((string) $tags);
+$entity->specialties = \elgg_string_to_array((string) $specialties);
 $entity->markertype = $markertype;
 $entity->street_address = $street_address;
 $entity->extended_address = $extended_address;
@@ -61,10 +61,10 @@ $entity->website = get_input('website');
 $entity->twitter = get_input('twitter');
 
 $tools = (array) get_input('tools', []);
-$entity->checkins = elgg_extract('checkins', $tools, false);
+$entity->checkins = \elgg_extract('checkins', $tools, false);
 
 if (!$entity->save()) {
-	return elgg_error_response(elgg_echo('places:edit:error'));
+	return \elgg_error_response(\elgg_echo('places:edit:error'));
 }
 
 $entity->location = implode(', ', array_filter([
@@ -76,7 +76,7 @@ if (!empty($_FILES['icon']['name']) && $_FILES['icon']['error'] == UPLOAD_ERR_OK
 }
 
 if ($new) {
-	elgg_create_river_item([
+	\elgg_create_river_item([
 		'view' => 'river/object/hjplace/create',
 		'action_type' => 'create',
 		'subject_guid' => $entity->owner_guid,
@@ -84,6 +84,6 @@ if ($new) {
 	]);
 }
 
-elgg_clear_sticky_form('places/edit');
+\elgg_clear_sticky_form('places/edit');
 
-return elgg_ok_response('', elgg_echo('places:edit:success', [$entity->getDisplayName()]), $entity->getURL());
+return \elgg_ok_response('', \elgg_echo('places:edit:success', [$entity->getDisplayName()]), $entity->getURL());

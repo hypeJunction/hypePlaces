@@ -34,7 +34,7 @@ class HooksTest extends IntegrationTestCase {
      * @return Place
      */
     private function makePlace(\ElggUser $user): Place {
-        _elgg_services()->session_manager->setLoggedInUser($user);
+        \_elgg_services()->session_manager->setLoggedInUser($user);
         $place = new Place();
         $place->owner_guid = $user->guid;
         $place->container_guid = $user->guid;
@@ -57,7 +57,7 @@ class HooksTest extends IntegrationTestCase {
         $this->assertStringContainsString('places/view/' . $place->guid, $url);
 
         $place->delete();
-        _elgg_services()->session_manager->removeLoggedInUser();
+        \_elgg_services()->session_manager->removeLoggedInUser();
     }
 
     /**
@@ -65,7 +65,7 @@ class HooksTest extends IntegrationTestCase {
      */
     public function testUrlHandlerPassesThroughForNonPlace(): void {
         $user = $this->createUser();
-        _elgg_services()->session_manager->setLoggedInUser($user);
+        \_elgg_services()->session_manager->setLoggedInUser($user);
         $obj = new \ElggObject();
         $obj->setSubtype('blog');
         $obj->owner_guid = $user->guid;
@@ -79,7 +79,7 @@ class HooksTest extends IntegrationTestCase {
         $this->assertEquals('original-url', $result);
 
         $obj->delete();
-        _elgg_services()->session_manager->removeLoggedInUser();
+        \_elgg_services()->session_manager->removeLoggedInUser();
     }
 
     /**
@@ -97,7 +97,7 @@ class HooksTest extends IntegrationTestCase {
         $this->assertStringContainsString('hypePlaces/graphics/icon/medium.png', $result);
 
         $place->delete();
-        _elgg_services()->session_manager->removeLoggedInUser();
+        \_elgg_services()->session_manager->removeLoggedInUser();
     }
 
     /**
@@ -116,7 +116,7 @@ class HooksTest extends IntegrationTestCase {
         $this->assertEquals(325, $result['325x200']['w']);
 
         $place->delete();
-        _elgg_services()->session_manager->removeLoggedInUser();
+        \_elgg_services()->session_manager->removeLoggedInUser();
     }
 
     /**
@@ -125,7 +125,7 @@ class HooksTest extends IntegrationTestCase {
     public function testEntityIconSizesPassesThroughForNonPlace(): void {
         $existing = ['topbar' => ['w' => 16, 'h' => 16]];
         $event = $this->makeEvent('entity:icon:sizes', 'object', $existing, [
-            'entity' => elgg_get_site_entity(),
+            'entity' => \elgg_get_site_entity(),
         ]);
         $result = entity_icon_sizes($event);
         $this->assertEquals($existing, $result);
@@ -148,7 +148,7 @@ class HooksTest extends IntegrationTestCase {
      */
     public function testEntityMenuSetupIgnoresNonPlace(): void {
         $event = $this->makeEvent('register', 'menu:entity', [], [
-            'entity' => elgg_get_site_entity(),
+            'entity' => \elgg_get_site_entity(),
         ]);
         $result = entity_menu_setup($event);
         $this->assertEquals([], $result);
