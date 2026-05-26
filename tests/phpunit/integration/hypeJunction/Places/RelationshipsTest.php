@@ -62,7 +62,7 @@ class RelationshipsTest extends IntegrationTestCase {
         $place->featured = true;
         $place->save();
 
-        _elgg_services()->entityCache->delete($place->guid);
+        \_elgg_services()->entityCache->delete($place->guid);
         $loaded = get_entity($place->guid);
         $this->assertNotEmpty($loaded->featured);
 

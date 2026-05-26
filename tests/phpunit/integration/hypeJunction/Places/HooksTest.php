@@ -88,7 +88,7 @@ class HooksTest extends IntegrationTestCase {
     public function testEntityIconSizesPassesThroughForNonPlace(): void {
         $existing = ['topbar' => ['w' => 16, 'h' => 16]];
         $result = entity_icon_sizes('entity:icon:sizes', 'object', $existing, [
-            'entity' => elgg_get_site_entity(),
+            'entity' => \elgg_get_site_entity(),
         ]);
         $this->assertEquals($existing, $result);
     }
@@ -104,7 +104,7 @@ class HooksTest extends IntegrationTestCase {
     public function testEntityMenuSetupIgnoresNonPlace(): void {
         $menu = [];
         $result = entity_menu_setup('register', 'menu:entity', $menu, [
-            'entity' => elgg_get_site_entity(),
+            'entity' => \elgg_get_site_entity(),
         ]);
         $this->assertEquals($menu, $result);
     }

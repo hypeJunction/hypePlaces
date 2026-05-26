@@ -13,8 +13,8 @@ function site_menu_setup(\Elgg\Hook $hook) {
 
 	$return[] = ElggMenuItem::factory([
 		'name' => 'places',
-		'text' => elgg_echo('places'),
-		'href' => elgg_generate_url('collection:object:hjplace:all'),
+		'text' => \elgg_echo('places'),
+		'href' => \elgg_generate_url('collection:object:hjplace:all'),
 	]);
 	return $return;
 }
@@ -26,11 +26,11 @@ function url_handler(\Elgg\Hook $hook) {
 	$params = $hook->getParams();
 	$return = $hook->getValue();
 
-	$entity = elgg_extract('entity', $params);
+	$entity = \elgg_extract('entity', $params);
 	if ($entity instanceof Place) {
-		return elgg_generate_url('view:object:hjplace', [
+		return \elgg_generate_url('view:object:hjplace', [
 			'guid' => $entity->guid,
-			'title' => elgg_get_friendly_title($entity->getDisplayName()),
+			'title' => \elgg_get_friendly_title($entity->getDisplayName()),
 		]);
 	}
 	return $return;
@@ -43,16 +43,16 @@ function entity_menu_setup(\Elgg\Hook $hook) {
 	$params = $hook->getParams();
 	$return = $hook->getValue();
 
-	$entity = elgg_extract('entity', $params);
+	$entity = \elgg_extract('entity', $params);
 	if (!$entity instanceof Place) {
 		return $return;
 	}
-	if (elgg_is_admin_logged_in()) {
+	if (\elgg_is_admin_logged_in()) {
 		$featured = $entity->featured;
 		$on_action = 'action/places/feature?guid=' . $entity->guid;
 		$off_action = 'action/places/unfeature?guid=' . $entity->guid;
-		$on_text = elgg_echo('places:feature');
-		$off_text = elgg_echo('places:unfeature');
+		$on_text = \elgg_echo('places:feature');
+		$off_text = \elgg_echo('places:unfeature');
 		$return[] = ElggMenuItem::factory([
 			'name' => 'feature',
 			'href' => $featured ? $off_action : $on_action,
@@ -70,21 +70,21 @@ function interactions_menu_setup(\Elgg\Hook $hook) {
 	$params = $hook->getParams();
 	$return = $hook->getValue();
 
-	$entity = elgg_extract('entity', $params);
+	$entity = \elgg_extract('entity', $params);
 	if (!$entity instanceof Place) {
 		return $return;
 	}
-	if (!elgg_is_logged_in()) {
+	if (!\elgg_is_logged_in()) {
 		return $return;
 	}
 
-	$bookmarked = (bool) check_entity_relationship(elgg_get_logged_in_user_guid(), 'bookmarked', $entity->guid);
+	$bookmarked = (bool) check_entity_relationship(\elgg_get_logged_in_user_guid(), 'bookmarked', $entity->guid);
 	$on_action = 'action/places/bookmark?guid=' . $entity->guid;
 	$off_action = 'action/places/unbookmark?guid=' . $entity->guid;
 	$return[] = ElggMenuItem::factory([
 		'name' => 'bookmark',
 		'href' => $bookmarked ? $off_action : $on_action,
-		'text' => elgg_echo($bookmarked ? 'places:unbookmark' : 'places:bookmark'),
+		'text' => \elgg_echo($bookmarked ? 'places:unbookmark' : 'places:bookmark'),
 	]);
 
 	if ($entity->checkins) {
@@ -94,7 +94,7 @@ function interactions_menu_setup(\Elgg\Hook $hook) {
 		$return[] = ElggMenuItem::factory([
 			'name' => 'checkin',
 			'href' => $checked_in ? $off_action : $on_action,
-			'text' => elgg_echo($checked_in ? 'places:checkout' : 'places:checkin'),
+			'text' => \elgg_echo($checked_in ? 'places:checkout' : 'places:checkin'),
 		]);
 	}
 
@@ -108,20 +108,20 @@ function owner_block_menu_setup(\Elgg\Hook $hook) {
 	$params = $hook->getParams();
 	$return = $hook->getValue();
 
-	$entity = elgg_extract('entity', $params);
+	$entity = \elgg_extract('entity', $params);
 	if ($entity instanceof \ElggGroup && $entity->places_enable !== 'no') {
 		$return[] = ElggMenuItem::factory([
 			'name' => 'group:places',
-			'text' => elgg_echo('places:group'),
-			'href' => elgg_generate_url('collection:object:hjplace:group', [
+			'text' => \elgg_echo('places:group'),
+			'href' => \elgg_generate_url('collection:object:hjplace:group', [
 				'guid' => $entity->guid,
 			]),
 		]);
 	} else if ($entity instanceof \ElggUser) {
 		$return[] = ElggMenuItem::factory([
 			'name' => 'user:places',
-			'text' => elgg_echo('places'),
-			'href' => elgg_generate_url('collection:object:hjplace:owner', [
+			'text' => \elgg_echo('places'),
+			'href' => \elgg_generate_url('collection:object:hjplace:owner', [
 				'username' => $entity->username,
 			]),
 		]);
@@ -136,9 +136,9 @@ function widget_layout_permissions_check(\Elgg\Hook $hook) {
 	$params = $hook->getParams();
 	$return = $hook->getValue();
 
-	$context = elgg_extract('context', $params);
-	$user = elgg_extract('user', $params);
-	$page_owner = elgg_extract('page_owner', $params);
+	$context = \elgg_extract('context', $params);
+	$user = \elgg_extract('user', $params);
+	$page_owner = \elgg_extract('page_owner', $params);
 	if (!$user instanceof \ElggEntity || !$page_owner instanceof \ElggEntity) {
 		return $return;
 	}

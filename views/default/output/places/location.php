@@ -2,7 +2,7 @@
 
 namespace hypeJunction\Places;
 
-$entity = elgg_extract('entity', $vars);
+$entity = \elgg_extract('entity', $vars);
 
 if (!$entity instanceof Place) {
 	return true;
@@ -16,7 +16,7 @@ if (!$value) {
 	return true;
 }
 
-echo elgg_view('output/url', array(
+echo \elgg_view('output/url', array(
 	'text' => $value,
 	'href' => "//maps.google.com/maps?q=$value",
 	'target' => '_blank'

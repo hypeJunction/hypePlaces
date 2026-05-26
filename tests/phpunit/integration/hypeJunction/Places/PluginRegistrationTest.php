@@ -23,18 +23,18 @@ class PluginRegistrationTest extends IntegrationTestCase {
 
     public function testPlaceClassIsMappedForSubtype(): void {
         // After activate.php runs, hjplace subtype should map to Place class.
-        $class = elgg_get_entity_class('object', Place::SUBTYPE);
+        $class = \elgg_get_entity_class('object', Place::SUBTYPE);
         if ($class === null) {
             // Plugin not active in test DB — register for this test
-            elgg_set_entity_class('object', Place::SUBTYPE, Place::class);
-            $class = elgg_get_entity_class('object', Place::SUBTYPE);
+            \elgg_set_entity_class('object', Place::SUBTYPE, Place::class);
+            $class = \elgg_get_entity_class('object', Place::SUBTYPE);
         }
         $this->assertEquals(Place::class, $class);
     }
 
     public function testEntityLoadsAsPlaceInstance(): void {
         // Ensure mapping is installed (idempotent)
-        elgg_set_entity_class('object', Place::SUBTYPE, Place::class);
+        \elgg_set_entity_class('object', Place::SUBTYPE, Place::class);
 
         $user = $this->createUser();
         $place = new Place();
@@ -44,7 +44,7 @@ class PluginRegistrationTest extends IntegrationTestCase {
         $place->title = 'Class Mapping Test';
         $this->assertTrue($place->save() !== false);
 
-        _elgg_services()->entityCache->delete($place->guid);
+        \_elgg_services()->entityCache->delete($place->guid);
         $loaded = get_entity($place->guid);
         $this->assertInstanceOf(Place::class, $loaded);
 

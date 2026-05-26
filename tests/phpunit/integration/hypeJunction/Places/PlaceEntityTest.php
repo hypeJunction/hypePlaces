@@ -82,7 +82,7 @@ class PlaceEntityTest extends IntegrationTestCase {
         $place->twitter = 'example';
         $this->assertTrue($place->save() !== false);
 
-        _elgg_services()->entityCache->delete($place->guid);
+        \_elgg_services()->entityCache->delete($place->guid);
         /** @var Place $loaded */
         $loaded = get_entity($place->guid);
 
@@ -144,7 +144,7 @@ class PlaceEntityTest extends IntegrationTestCase {
     public function testCheckInWithoutUserReturnsFalseWhenNotLoggedIn(): void {
         $place = new Place();
         $place->owner_guid = 0;
-        $place->container_guid = elgg_get_site_entity()->guid;
+        $place->container_guid = \elgg_get_site_entity()->guid;
         $place->access_id = ACCESS_PUBLIC;
         $place->title = 'Anonymous Checkin';
         // When not logged in, checkIn() with no arg should return false

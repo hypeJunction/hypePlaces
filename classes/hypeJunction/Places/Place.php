@@ -45,7 +45,7 @@ class Place extends ElggObject {
 	 * @return integer Duration in seconds
 	 */
 	public function getCheckinDuration() {
-		$minutes = elgg_get_plugin_setting('checkin_duration', PLUGIN_ID);
+		$minutes = \elgg_get_plugin_setting('checkin_duration', PLUGIN_ID);
 		if (!$minutes) {
 			$minutes = self::CHECKIN_DURATION;
 		}
@@ -70,7 +70,7 @@ class Place extends ElggObject {
 			unset($options['annotation_create_time_lower']);
 		}
 
-		return elgg_get_annotations($options);
+		return \elgg_get_annotations($options);
 	}
 
 	/**
@@ -82,10 +82,10 @@ class Place extends ElggObject {
 	public function isCheckedIn($user_guid = 0) {
 
 		if (!$user_guid) {
-			$user_guid = elgg_get_logged_in_user_guid();
+			$user_guid = \elgg_get_logged_in_user_guid();
 		}
 
-		return elgg_get_annotations(array(
+		return \elgg_get_annotations(array(
 			'guids' => $this->guid,
 			'annotation_owner_guids' => (int) $user_guid,
 			'annotation_names' => 'checkin',
@@ -102,7 +102,7 @@ class Place extends ElggObject {
 	 */
 	public function checkIn($user_guid = 0) {
 		if (!$user_guid) {
-			$user_guid = elgg_get_logged_in_user_guid();
+			$user_guid = \elgg_get_logged_in_user_guid();
 		}
 		if (!$user_guid) {
 			return false;
