@@ -5,12 +5,12 @@ namespace hypeJunction\Places;
 $options = [
 	'limit' => $entity->num_display,
 	'pagination' => false,
-	'object_guids' => elgg_get_page_owner_guid(),
+	'object_guids' => \elgg_get_page_owner_guid(),
 ];
 
-$content = elgg_list_river($options);
+$content = \elgg_list_river($options);
 if (!$content) {
-	$content = elgg_echo('river:none');
+	$content = \elgg_echo('river:none');
 }
 
 echo $content;

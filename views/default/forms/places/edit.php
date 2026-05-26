@@ -2,81 +2,81 @@
 
 namespace hypeJunction\Places;
 
-$entity = elgg_extract('entity', $vars);
-$container = elgg_extract('container', $vars);
+$entity = \elgg_extract('entity', $vars);
+$container = \elgg_extract('container', $vars);
 
-$required = elgg_format_attributes([
-	'title' => elgg_echo('places:required'),
+$required = \elgg_format_attributes([
+	'title' => \elgg_echo('places:required'),
 	'class' => 'required'
 ]);
 ?>
 <fieldset class="has-legend">
-	<legend><?php echo elgg_echo('places:place:about') ?></legend>
+	<legend><?php echo \elgg_echo('places:place:about') ?></legend>
 	<div>
-		<label <?php echo $required ?>><?php echo elgg_echo('places:place:title') ?></label>
+		<label <?php echo $required ?>><?php echo \elgg_echo('places:place:title') ?></label>
 		<?php
-		echo elgg_view('input/text', [
+		echo \elgg_view('input/text', [
 			'name' => 'title',
-			'value' => elgg_extract('title', $vars, $entity->title),
+			'value' => \elgg_extract('title', $vars, $entity->title),
 			'required' => true,
 		]);
 		?>
 	</div>
 	<div>
-		<label><?php echo elgg_echo('places:place:icon') ?></label>
+		<label><?php echo \elgg_echo('places:place:icon') ?></label>
 		<?php
-		echo elgg_view('input/file', [
+		echo \elgg_view('input/file', [
 			'name' => 'icon',
 			'value' => ($entity instanceof Place && $entity->hasIcon()) ? 1 : null,
 		]);
 		?>
 	</div>
 	<div>
-		<label><?php echo elgg_echo('places:place:description') ?></label>
+		<label><?php echo \elgg_echo('places:place:description') ?></label>
 		<?php
-		echo elgg_view('input/longtext', [
+		echo \elgg_view('input/longtext', [
 			'name' => 'description',
-			'value' => elgg_extract('description', $vars, $entity->description),
+			'value' => \elgg_extract('description', $vars, $entity->description),
 		]);
 		?>
 	</div>
 	<div>
-		<label><?php echo elgg_echo('places:place:category') ?></label>
+		<label><?php echo \elgg_echo('places:place:category') ?></label>
 		<?php
-		echo elgg_view('input/category', [
-			'value' => elgg_extract('category', $vars),
+		echo \elgg_view('input/category', [
+			'value' => \elgg_extract('category', $vars),
 			'entity' => $entity,
 		]);
 		?>
 	</div>
 	<div>
-		<label><?php echo elgg_echo('places:place:tags') ?></label>
+		<label><?php echo \elgg_echo('places:place:tags') ?></label>
 		<?php
-		echo elgg_view('input/tags', [
+		echo \elgg_view('input/tags', [
 			'name' => 'tags',
-			'value' => elgg_extract('tags', $vars, $entity->tags),
+			'value' => \elgg_extract('tags', $vars, $entity->tags),
 		]);
 		?>
 	</div>
 	<div>
-		<label><?php echo elgg_echo('tag_names:specialties') ?></label>
+		<label><?php echo \elgg_echo('tag_names:specialties') ?></label>
 		<?php
-		echo elgg_view('input/tags', [
+		echo \elgg_view('input/tags', [
 			'name' => 'specialties',
-			'value' => elgg_extract('specialties', $vars, $entity->specialties),
+			'value' => \elgg_extract('specialties', $vars, $entity->specialties),
 		]);
 		?>
 	</div>
 
 	<?php
-	if (elgg_view_exists('input/markertype')) {
+	if (\elgg_view_exists('input/markertype')) {
 		?>
 		<div>
-			<label><?php echo elgg_echo('places:place:markertype') ?></label>
+			<label><?php echo \elgg_echo('places:place:markertype') ?></label>
 			<?php
-			echo elgg_view('input/markertype', [
+			echo \elgg_view('input/markertype', [
 				'name' => 'markertype',
-				'value' => elgg_extract('markertype', $vars, $entity->markertype),
+				'value' => \elgg_extract('markertype', $vars, $entity->markertype),
 			]);
 			?>
 		</div>
@@ -85,58 +85,58 @@ $required = elgg_format_attributes([
 	?>
 </fieldset>
 <fieldset class="has-legend">
-	<legend><?php echo elgg_echo('places:place:address') ?></legend>
+	<legend><?php echo \elgg_echo('places:place:address') ?></legend>
 	<?php
-	echo elgg_view('forms/places/postal_address', [
+	echo \elgg_view('forms/places/postal_address', [
 		'prefix' => 'address',
-		'value' => elgg_extract('address', $vars, ($entity instanceof Place) ? $entity->getAddress() : []),
+		'value' => \elgg_extract('address', $vars, ($entity instanceof Place) ? $entity->getAddress() : []),
 		'required' => true,
 	]);
 	?>
 </fieldset>
 <fieldset class="has-legend">
-	<legend><?php echo elgg_echo('places:place:contact') ?></legend>
+	<legend><?php echo \elgg_echo('places:place:contact') ?></legend>
 	<?php
-	echo elgg_view('forms/places/contact_details', $vars);
+	echo \elgg_view('forms/places/contact_details', $vars);
 	?>
 </fieldset>
 
 <fieldset class="has-legend">
-	<legend><?php echo elgg_echo('places:place:tools') ?></legend>
+	<legend><?php echo \elgg_echo('places:place:tools') ?></legend>
 	<div>
 		<?php
-		echo '<label>' . elgg_view('input/checkbox', [
+		echo '<label>' . \elgg_view('input/checkbox', [
 			'name' => 'tools[checkins]',
 			'default' => false,
 			'value' => true,
 			'checked' => (isset($entity->checkins)) ? $entity->checkins : true,
-		]) . elgg_echo('places:place:tools:checkins') . '</label>';
+		]) . \elgg_echo('places:place:tools:checkins') . '</label>';
 		?>
 	</div>
 </fieldset>
 
 <div>
-	<label><?php echo elgg_echo('places:place:access_id') ?></label>
+	<label><?php echo \elgg_echo('places:place:access_id') ?></label>
 	<?php
-	echo elgg_view('input/access', [
+	echo \elgg_view('input/access', [
 		'name' => 'access_id',
-		'value' => elgg_extract('access_id', $vars, ($entity) ? $entity->access_id : get_default_access()),
+		'value' => \elgg_extract('access_id', $vars, ($entity) ? $entity->access_id : get_default_access()),
 	]);
 	?>
 </div>
 
 <div class="elgg-foot text-right">
 	<?php
-	echo elgg_view('input/hidden', [
+	echo \elgg_view('input/hidden', [
 		'name' => 'guid',
-		'value' => elgg_extract('guid', $vars, $entity->guid),
+		'value' => \elgg_extract('guid', $vars, $entity->guid),
 	]);
-	echo elgg_view('input/hidden', [
+	echo \elgg_view('input/hidden', [
 		'name' => 'container_guid',
-		'value' => elgg_extract('container_guid', $vars, $container->guid),
+		'value' => \elgg_extract('container_guid', $vars, $container->guid),
 	]);
-	echo elgg_view('input/submit', [
-		'value' => elgg_echo('save')
+	echo \elgg_view('input/submit', [
+		'value' => \elgg_echo('save')
 	]);
 	?>
 </div>

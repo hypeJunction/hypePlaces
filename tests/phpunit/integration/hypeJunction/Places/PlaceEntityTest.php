@@ -49,7 +49,7 @@ class PlaceEntityTest extends IntegrationTestCase {
      */
     public function testPlaceCanBeSaved(): void {
         $user = $this->createUser();
-        _elgg_services()->session_manager->setLoggedInUser($user);
+        \_elgg_services()->session_manager->setLoggedInUser($user);
         $place = new Place();
         $place->owner_guid = $user->guid;
         $place->container_guid = $user->guid;
@@ -65,7 +65,7 @@ class PlaceEntityTest extends IntegrationTestCase {
         $this->assertEquals('Test Place', $loaded->title);
 
         $place->delete();
-        _elgg_services()->session_manager->removeLoggedInUser();
+        \_elgg_services()->session_manager->removeLoggedInUser();
     }
 
     /**
@@ -73,7 +73,7 @@ class PlaceEntityTest extends IntegrationTestCase {
      */
     public function testPlacePersistsAddressMetadata(): void {
         $user = $this->createUser();
-        _elgg_services()->session_manager->setLoggedInUser($user);
+        \_elgg_services()->session_manager->setLoggedInUser($user);
         $place = new Place();
         $place->owner_guid = $user->guid;
         $place->container_guid = $user->guid;
@@ -91,7 +91,7 @@ class PlaceEntityTest extends IntegrationTestCase {
         $place->twitter = 'example';
         $this->assertTrue($place->save() !== false);
 
-        _elgg_services()->entityCache->delete($place->guid);
+        \_elgg_services()->entityCache->delete($place->guid);
         $loaded = get_entity($place->guid);
         $this->assertInstanceOf(Place::class, $loaded);
 
@@ -109,7 +109,7 @@ class PlaceEntityTest extends IntegrationTestCase {
         $this->assertEquals('example', $loaded->twitter);
 
         $place->delete();
-        _elgg_services()->session_manager->removeLoggedInUser();
+        \_elgg_services()->session_manager->removeLoggedInUser();
     }
 
     /**
@@ -142,7 +142,7 @@ class PlaceEntityTest extends IntegrationTestCase {
      */
     public function testCheckInCreatesAnnotation(): void {
         $user = $this->createUser();
-        _elgg_services()->session_manager->setLoggedInUser($user);
+        \_elgg_services()->session_manager->setLoggedInUser($user);
         $place = new Place();
         $place->owner_guid = $user->guid;
         $place->container_guid = $user->guid;
@@ -158,7 +158,7 @@ class PlaceEntityTest extends IntegrationTestCase {
         $this->assertGreaterThan(0, $count);
 
         $place->delete();
-        _elgg_services()->session_manager->removeLoggedInUser();
+        \_elgg_services()->session_manager->removeLoggedInUser();
     }
 
     /**
@@ -167,7 +167,7 @@ class PlaceEntityTest extends IntegrationTestCase {
     public function testCheckInWithoutUserReturnsFalseWhenNotLoggedIn(): void {
         $place = new Place();
         $place->owner_guid = 0;
-        $place->container_guid = elgg_get_site_entity()->guid;
+        $place->container_guid = \elgg_get_site_entity()->guid;
         $place->access_id = ACCESS_PUBLIC;
         $place->title = 'Anonymous Checkin';
         $this->assertFalse($place->checkIn(0));
@@ -179,7 +179,7 @@ class PlaceEntityTest extends IntegrationTestCase {
     public function testOwnerCanEditPlace(): void {
         $owner = $this->createUser();
         $other = $this->createUser();
-        _elgg_services()->session_manager->setLoggedInUser($owner);
+        \_elgg_services()->session_manager->setLoggedInUser($owner);
         $place = new Place();
         $place->owner_guid = $owner->guid;
         $place->container_guid = $owner->guid;
@@ -191,6 +191,6 @@ class PlaceEntityTest extends IntegrationTestCase {
         $this->assertFalse($place->canEdit($other->guid));
 
         $place->delete();
-        _elgg_services()->session_manager->removeLoggedInUser();
+        \_elgg_services()->session_manager->removeLoggedInUser();
     }
 }

@@ -2,10 +2,10 @@
 
 namespace hypeJunction\Places;
 
-$entity = elgg_extract('entity', $vars);
+$entity = \elgg_extract('entity', $vars);
 
 if ($entity instanceof Place) {
-	echo elgg_view_menu('product:page', [
+	echo \elgg_view_menu('product:page', [
 		'entity' => $entity,
 		'sort_by' => 'priority',
 		'class' => 'elgg-menu-page',
