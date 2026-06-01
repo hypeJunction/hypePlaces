@@ -6,7 +6,7 @@ $guid = get_input('guid');
 $entity = get_entity($guid);
 
 if (!$entity) {
-	elgg_register_error_message(elgg_echo('places:error:not_found'));
+	register_error(elgg_echo('places:error:not_found'));
 	forward(REFERER);
 }
 
@@ -19,9 +19,9 @@ if (!check_entity_relationship(elgg_get_logged_in_user_guid(), 'bookmarked', $gu
 		'object_guid' => $entity->guid,
 		'access_id' => $entity->access_id
 	));
-	elgg_register_success_message(elgg_echo('places:bookmark:create:success'));
+	system_message(elgg_echo('places:bookmark:create:success'));
 	forward(REFERER);
 }
 
-elgg_register_error_message(elgg_echo('places:bookmark:create:error'));
+register_error(elgg_echo('places:bookmark:create:error'));
 forward(REFERER);

@@ -6,7 +6,7 @@ $guid = get_input('guid');
 $entity = get_entity($guid);
 
 if (!$entity instanceof Place) {
-	elgg_register_error_message(elgg_echo('places:error:not_found'));
+	register_error(elgg_echo('places:error:not_found'));
 	forward(REFERER);
 }
 
@@ -23,9 +23,9 @@ if ($entity->isCheckedIn()) {
 		$ci->delete();
 	}
 	
-	elgg_register_success_message(elgg_echo('places:checkout:success', array($entity->title)));
+	system_message(elgg_echo('places:checkout:success', array($entity->title)));
 	forward(REFERER);
 }
 
-elgg_register_error_message(elgg_echo('places:checkout:error', array($entity->title)));
+register_error(elgg_echo('places:checkout:error', array($entity->title)));
 forward(REFERER);

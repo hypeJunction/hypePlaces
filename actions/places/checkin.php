@@ -6,7 +6,7 @@ $guid = get_input('guid');
 $entity = get_entity($guid);
 
 if (!$entity instanceof Place) {
-	elgg_register_error_message(elgg_echo('places:error:not_found'));
+	register_error(elgg_echo('places:error:not_found'));
 	forward(REFERER);
 }
 
@@ -20,10 +20,10 @@ if (!$entity->isCheckedIn()) {
 			'acess_id' => $entity->access_id,
 			'annotation_id' => $id
 		));
-		elgg_register_success_message(elgg_echo('places:checkin:success', array($entity->title)));
+		system_message(elgg_echo('places:checkin:success', array($entity->title)));
 		forward(REFERER);
 	}
 }
 
-elgg_register_error_message(elgg_echo('places:checkin:error', array($entity->title)));
+register_error(elgg_echo('places:checkin:error', array($entity->title)));
 forward(REFERER);

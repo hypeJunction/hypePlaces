@@ -9,12 +9,12 @@ $title = $entity->title;
 
 if (($entity) && ($entity->canEdit())) {
 	if ($entity->delete()) {
-		elgg_register_success_message(elgg_echo('places:delete:success', array($title)));
+		system_message(elgg_echo('places:delete:success', array($title)));
 	} else {
-		elgg_register_error_message(elgg_echo('places:delete:error', array($title)));
+		register_error(elgg_echo('places:delete:error', array($title)));
 	}
 } else {
-	elgg_register_error_message(elgg_echo('places:delete:error', array($title)));
+	register_error(elgg_echo('places:delete:error', array($title)));
 }
 
 forward(REFERER);
