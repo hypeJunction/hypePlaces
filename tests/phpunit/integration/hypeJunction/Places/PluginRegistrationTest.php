@@ -17,10 +17,16 @@ class PluginRegistrationTest extends IntegrationTestCase {
     public function up() {}
     public function down() {}
 
+    /**
+     * @return string
+     */
     public function getPluginID(): string {
         return '';
     }
 
+    /**
+     * @return void
+     */
     public function testPlaceClassIsMappedForSubtype(): void {
         // After activate.php runs, hjplace subtype should map to Place class.
         $class = \elgg_get_entity_class('object', Place::SUBTYPE);
@@ -32,6 +38,9 @@ class PluginRegistrationTest extends IntegrationTestCase {
         $this->assertEquals(Place::class, $class);
     }
 
+    /**
+     * @return void
+     */
     public function testEntityLoadsAsPlaceInstance(): void {
         // Ensure mapping is installed (idempotent)
         \elgg_set_entity_class('object', Place::SUBTYPE, Place::class);
@@ -51,6 +60,9 @@ class PluginRegistrationTest extends IntegrationTestCase {
         $place->delete();
     }
 
+    /**
+     * @return void
+     */
     public function testPluginConstantsAreDefined(): void {
         $this->assertEquals('hypePlaces', PLUGIN_ID);
         $this->assertEquals('places', PAGEHANDLER);

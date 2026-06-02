@@ -138,4 +138,9 @@ return [
 			'default_on' => true,
 		],
 	],
+    'cli' => [
+        'commands' => [
+            \hypeJunction\Places\Cli\DoctorCommand::class,
+        ],
+    ],
 ];

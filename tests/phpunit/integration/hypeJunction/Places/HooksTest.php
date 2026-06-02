@@ -17,10 +17,17 @@ class HooksTest extends IntegrationTestCase {
     public function up() {}
     public function down() {}
 
+    /**
+     * @return string
+     */
     public function getPluginID(): string {
         return '';
     }
 
+    /**
+     * @param int $owner_guid
+     * @return Place
+     */
     private function makePlace(int $owner_guid): Place {
         $place = new Place();
         $place->owner_guid = $owner_guid;
@@ -31,6 +38,9 @@ class HooksTest extends IntegrationTestCase {
         return $place;
     }
 
+    /**
+     * @return void
+     */
     public function testUrlHandlerReturnsPlaceUrl(): void {
         $user = $this->createUser();
         $place = $this->makePlace($user->guid);
@@ -42,6 +52,9 @@ class HooksTest extends IntegrationTestCase {
         $place->delete();
     }
 
+    /**
+     * @return void
+     */
     public function testUrlHandlerPassesThroughForNonPlace(): void {
         $user = $this->createUser();
         $obj = new \ElggObject();
@@ -58,6 +71,9 @@ class HooksTest extends IntegrationTestCase {
         $obj->delete();
     }
 
+    /**
+     * @return void
+     */
     public function testEntityIconUrlReturnsDefaultWhenNoIcontime(): void {
         $user = $this->createUser();
         $place = $this->makePlace($user->guid);
@@ -71,6 +87,9 @@ class HooksTest extends IntegrationTestCase {
         $place->delete();
     }
 
+    /**
+     * @return void
+     */
     public function testEntityIconSizesReturnsConfigForPlace(): void {
         $user = $this->createUser();
         $place = $this->makePlace($user->guid);
@@ -85,6 +104,9 @@ class HooksTest extends IntegrationTestCase {
         $place->delete();
     }
 
+    /**
+     * @return void
+     */
     public function testEntityIconSizesPassesThroughForNonPlace(): void {
         $existing = ['topbar' => ['w' => 16, 'h' => 16]];
         $result = entity_icon_sizes('entity:icon:sizes', 'object', $existing, [
@@ -93,6 +115,9 @@ class HooksTest extends IntegrationTestCase {
         $this->assertEquals($existing, $result);
     }
 
+    /**
+     * @return void
+     */
     public function testSetupSiteSearchMapsRegistersPlacesMap(): void {
         $result = setup_site_search_maps('search:site', 'maps', [], []);
         $this->assertIsArray($result);
@@ -101,6 +126,9 @@ class HooksTest extends IntegrationTestCase {
         $this->assertEquals(Place::SUBTYPE, $result['places']['options']['subtypes']);
     }
 
+    /**
+     * @return void
+     */
     public function testEntityMenuSetupIgnoresNonPlace(): void {
         $menu = [];
         $result = entity_menu_setup('register', 'menu:entity', $menu, [
@@ -109,6 +137,9 @@ class HooksTest extends IntegrationTestCase {
         $this->assertEquals($menu, $result);
     }
 
+    /**
+     * @return void
+     */
     public function testWidgetLayoutPermissionsCheckPassesThrough(): void {
         $result = widget_layout_permissions_check('permissions_check', 'widget_layout', false, []);
         $this->assertFalse($result);

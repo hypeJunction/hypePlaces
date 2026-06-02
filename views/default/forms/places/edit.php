@@ -5,7 +5,7 @@ namespace hypeJunction\Places;
 $entity = \elgg_extract('entity', $vars);
 $container = \elgg_extract('container', $vars);
 
-$required = \elgg_format_attributes(array(
+$required = \_elgg_services()->html_formatter->formatAttributes(array(
 	'title' => \elgg_echo('places:required'),
 	'class' => 'required'
 		));

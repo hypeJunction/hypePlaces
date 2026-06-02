@@ -13,10 +13,17 @@ class RelationshipsTest extends IntegrationTestCase {
     public function up() {}
     public function down() {}
 
+    /**
+     * @return string
+     */
     public function getPluginID(): string {
         return '';
     }
 
+    /**
+     * @param int $owner_guid
+     * @return Place
+     */
     private function makePlace(int $owner_guid): Place {
         $place = new Place();
         $place->owner_guid = $owner_guid;
@@ -27,6 +34,9 @@ class RelationshipsTest extends IntegrationTestCase {
         return $place;
     }
 
+    /**
+     * @return void
+     */
     public function testBookmarkRelationshipCanBeAddedAndChecked(): void {
         $user = $this->createUser();
         $place = $this->makePlace($user->guid);
@@ -42,6 +52,9 @@ class RelationshipsTest extends IntegrationTestCase {
         $place->delete();
     }
 
+    /**
+     * @return void
+     */
     public function testCheckinAnnotationIsRetrievable(): void {
         $user = $this->createUser();
         $place = $this->makePlace($user->guid);
@@ -54,6 +67,9 @@ class RelationshipsTest extends IntegrationTestCase {
         $place->delete();
     }
 
+    /**
+     * @return void
+     */
     public function testFeaturedMetadataTogglesValue(): void {
         $user = $this->createUser();
         $place = $this->makePlace($user->guid);
