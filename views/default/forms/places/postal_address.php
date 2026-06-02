@@ -13,11 +13,12 @@ $prefix = \elgg_extract('prefix', $vars, 'address');
 $required = \elgg_extract('required', $vars, false);
 $value = \elgg_extract('value', $vars);
 
+$label_attrs = [];
 if ($required) {
-	$label_attrs = \elgg_format_attributes([
+	$label_attrs = [
 		'title' => \elgg_echo('places:required'),
 		'class' => 'required',
-	]);
+	];
 }
 
 $street_address = \elgg_view('input/text', [
@@ -78,7 +79,7 @@ if (\elgg_view_exists('input/geo/country')) {
 
 <fieldset class="places-postal-address" data-postal-address>
 	<div data-street-address>
-		<label <?php echo $label_attrs ?>><?php echo \elgg_echo('places:postal_address:street_address') ?></label>
+		<?php echo \elgg_format_element('label', $label_attrs, \elgg_echo('places:postal_address:street_address')) ?>
 		<?php echo $street_address ?>
 	</div>
 	<div data-extended-address>
@@ -86,7 +87,7 @@ if (\elgg_view_exists('input/geo/country')) {
 		<?php echo $extended_address ?>
 	</div>
 	<div data-locality>
-		<label <?php echo $label_attrs ?>><?php echo \elgg_echo('places:postal_address:locality') ?></label>
+		<?php echo \elgg_format_element('label', $label_attrs, \elgg_echo('places:postal_address:locality')) ?>
 		<?php echo $locality ?>
 	</div>
 	<div data-region>
@@ -94,11 +95,11 @@ if (\elgg_view_exists('input/geo/country')) {
 		<?php echo $region ?>
 	</div>
 	<div data-postal-code>
-		<label <?php echo $label_attrs ?>><?php echo \elgg_echo('places:postal_address:postal_code') ?></label>
+		<?php echo \elgg_format_element('label', $label_attrs, \elgg_echo('places:postal_address:postal_code')) ?>
 		<?php echo $postal_code ?>
 	</div>
 	<div data-country>
-		<label <?php echo $label_attrs ?>><?php echo \elgg_echo('places:postal_address:country') ?></label>
+		<?php echo \elgg_format_element('label', $label_attrs, \elgg_echo('places:postal_address:country')) ?>
 		<?php echo $country ?>
 	</div>
 </fieldset>

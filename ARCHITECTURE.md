@@ -178,3 +178,15 @@ fleet because the shared `docker/elgg4` environment has pre-existing
 crashes from sibling fleet plugins (`hypePrototyper`, `hypeBlog`) that
 crash core boot before any request handler runs. Those failures are
 independent of `hypePlaces` (filed separately under MIGRATION-STATUS.md).
+
+## Seeding
+
+This plugin owns the following entity types and ships a `Seeder` subclass:
+
+- `object/hjplace`
+
+**Seed dev/QA data:**
+```bash
+php elgg-cli database:seed --type=hypeplaces --limit=10
+php elgg-cli database:unseed --type=hypeplaces
+```

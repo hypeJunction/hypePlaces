@@ -5,15 +5,15 @@ namespace hypeJunction\Places;
 $entity = \elgg_extract('entity', $vars);
 $container = \elgg_extract('container', $vars);
 
-$required = \elgg_format_attributes([
+$required_attrs = [
 	'title' => \elgg_echo('places:required'),
-	'class' => 'required'
-]);
+	'class' => 'required',
+];
 ?>
 <fieldset class="has-legend">
 	<legend><?php echo \elgg_echo('places:place:about') ?></legend>
 	<div>
-		<label <?php echo $required ?>><?php echo \elgg_echo('places:place:title') ?></label>
+		<?php echo \elgg_format_element('label', $required_attrs, \elgg_echo('places:place:title')) ?>
 		<?php
 		echo \elgg_view('input/text', [
 			'name' => 'title',
@@ -120,7 +120,7 @@ $required = \elgg_format_attributes([
 	<?php
 	echo \elgg_view('input/access', [
 		'name' => 'access_id',
-		'value' => \elgg_extract('access_id', $vars, ($entity) ? $entity->access_id : get_default_access()),
+		'value' => \elgg_extract('access_id', $vars, ($entity) ? $entity->access_id : elgg_get_default_access()),
 	]);
 	?>
 </div>
