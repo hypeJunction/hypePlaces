@@ -7,8 +7,7 @@ if (!$group instanceof \ElggGroup) {
 }
 
 elgg_set_page_owner_guid($group->guid);
-// TODO(6.x): elgg_group_gatekeeper() removed/changed in 6.x — verify replacement (likely elgg_entity_gatekeeper or group gatekeeper service)
-elgg_group_gatekeeper();
+elgg_entity_gatekeeper($group->guid, 'group');
 
 if ($group->canWriteToContainer(0, 'object', \hypeJunction\Places\Place::SUBTYPE)) {
 	elgg_register_title_button('places', 'add');

@@ -9,8 +9,7 @@ if (!$entity instanceof \hypeJunction\Places\Place) {
 $container = $entity->getContainerEntity();
 if ($container instanceof \ElggGroup) {
 	elgg_set_page_owner_guid($container->guid);
-	// TODO(6.x): elgg_group_gatekeeper() removed/changed in 6.x — verify replacement (likely elgg_entity_gatekeeper or group gatekeeper service)
-	elgg_group_gatekeeper();
+	elgg_entity_gatekeeper($container->guid, 'group');
 	elgg_push_breadcrumb($container->getDisplayName(), elgg_generate_url('collection:object:hjplace:group', [
 		'guid' => $container->guid,
 	]));
