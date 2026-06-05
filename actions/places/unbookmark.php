@@ -10,7 +10,7 @@ if (!$entity instanceof Place) {
 }
 
 $user_guid = elgg_get_logged_in_user_guid();
-$user = elgg_get_logged_in_user();
+$user = elgg_get_logged_in_user_entity();
 
 if (!$user->hasRelationship($guid, 'bookmarked')) {
 	return elgg_error_response(elgg_echo('places:bookmark:remove:error'));

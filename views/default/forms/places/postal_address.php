@@ -14,7 +14,7 @@ $required = elgg_extract('required', $vars, false);
 $value = elgg_extract('value', $vars);
 
 if ($required) {
-	$label_attrs = elgg_format_attributes([
+	$label_attrs = _elgg_services()->html_formatter->formatAttributes([
 		'title' => elgg_echo('places:required'),
 		'class' => 'required',
 	]);
