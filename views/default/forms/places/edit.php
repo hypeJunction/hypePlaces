@@ -5,7 +5,7 @@ namespace hypeJunction\Places;
 $entity = elgg_extract('entity', $vars);
 $container = elgg_extract('container', $vars);
 
-$required = elgg_format_attributes([
+$required = _elgg_services()->html_formatter->formatAttributes([
 	'title' => elgg_echo('places:required'),
 	'class' => 'required'
 ]);
@@ -120,7 +120,7 @@ $required = elgg_format_attributes([
 	<?php
 	echo elgg_view('input/access', [
 		'name' => 'access_id',
-		'value' => elgg_extract('access_id', $vars, ($entity) ? $entity->access_id : get_default_access()),
+		'value' => elgg_extract('access_id', $vars, ($entity) ? $entity->access_id : elgg_get_default_access()),
 	]);
 	?>
 </div>
